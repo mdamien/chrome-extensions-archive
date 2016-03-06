@@ -56,8 +56,8 @@ def parse_page(ext_id):
                 print('-- NEED TO RE-DOWNLOAD THIS PAGE')
                 return {}
             data = microdata(html)
-            data['pagemap'] = pagemap_extract(html, data)
-            data['scrap'] = scrap(html, data)
+            pagemap_extract(html, data)
+            scrap(html, data)
             return data
     else:
         return {}
