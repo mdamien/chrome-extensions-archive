@@ -104,6 +104,7 @@ def extract_manifest(ext_id):
             print('fucking interrupted downloads')
     else:
         print(crx_file,'does not exist')
+    #TODO: add filesize
 
 assert decomment("{/*lol*/}").strip() == """{}"""
 

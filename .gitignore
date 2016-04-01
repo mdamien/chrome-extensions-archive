@@ -1,5 +1,5 @@
-crx/
-pages/
-scratch/
-sitemap/
-comments/
+data/
+notes/
+crawled/
+secreeets.py
+*.pyc
