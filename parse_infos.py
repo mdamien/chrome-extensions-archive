@@ -69,9 +69,8 @@ def decomment(json_text):
     result = process.communicate()[0].decode('utf-8')
     return result
 
-def extract_manifest(ext_id):
+def extract_manifest_of_file(crx_file):
     debug = False
-    crx_file = 'crx/{ID}.crx'.format(ID=ext_id)
     if os.path.isfile(crx_file):
         size = os.path.getsize(crx_file)
         if size == 0:
@@ -106,34 +105,39 @@ def extract_manifest(ext_id):
         print(crx_file,'does not exist')
     #TODO: add filesize
 
-assert decomment("{/*lol*/}").strip() == """{}"""
+def extract_manifest(ext_id):
+    crx_file = 'crx/{ID}.crx'.format(ID=ext_id)
+    return extract_manifest_of_file(crx_file)
 
-#test edge case
-extract_manifest('pecialgmmceelbdjljhdmifgnnplgbkp')
-extract_manifest('epinhnanplaehkdjopehcackkoccdpja')
-extract_manifest('fjncnaogemmlhdgigpjlmjaalmmagnpf')
-extract_manifest('eceafjaikogdiipibmbcaeopdgpgkfjm')
-extract_manifest('ndmkfdienaldgalnecedmgklhgoaanej')
-extract_manifest('dcibengndfkldipifhfochlcjmcfmnij')
-extract_manifest('cahainciljeejkajijkbhgjlbneeggfj')
+if __name__ == '__main__':
+    assert decomment("{/*lol*/}").strip() == """{}"""
 
-DATA = []
+    #test edge case
+    extract_manifest('pecialgmmceelbdjljhdmifgnnplgbkp')
+    extract_manifest('epinhnanplaehkdjopehcackkoccdpja')
+    extract_manifest('fjncnaogemmlhdgigpjlmjaalmmagnpf')
+    extract_manifest('eceafjaikogdiipibmbcaeopdgpgkfjm')
+    extract_manifest('ndmkfdienaldgalnecedmgklhgoaanej')
+    extract_manifest('dcibengndfkldipifhfochlcjmcfmnij')
+    extract_manifest('cahainciljeejkajijkbhgjlbneeggfj')
 
-def save():
-    with open('enriched.json','w') as f:
-        json.dump(DATA, f, indent=2, sort_keys=True)
+    DATA = []
 
-for i, url in enumerate(json.load(open('extension_list.json'))):
-    ext_id = url.split('/')[-1]
-    print(ext_id)
-    data = parse_page(ext_id)
-    data['url'] = url
-    data['ext_id'] = ext_id
-    manifest = extract_manifest(ext_id)
-    data['manifest'] = manifest
-    DATA.append(data)
+    def save():
+        with open('enriched.json','w') as f:
+            json.dump(DATA, f, indent=2, sort_keys=True)
 
-    if i % 1000 == 0:
-        save()
+    for i, url in enumerate(json.load(open('extension_list.json'))):
+        ext_id = url.split('/')[-1]
+        print(ext_id)
+        data = parse_page(ext_id)
+        data['url'] = url
+        data['ext_id'] = ext_id
+        manifest = extract_manifest(ext_id)
+        data['manifest'] = manifest
+        DATA.append(data)
 
-save()
+        if i % 1000 == 0:
+            save()
+
+    save()
