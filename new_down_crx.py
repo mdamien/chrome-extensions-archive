@@ -38,7 +38,10 @@ for ext in extlist:
 	print(ext['name'])
 	print(ext_id)
 	tmp_file = TMP_FILE.format(ext_id=ext_id)
-	down(ext_id, tmp_file)
+	try:
+		down(ext_id, tmp_file)
+	except Exception as e:
+		print('fail to download:', e)
 	manifest = extract_manifest_of_file(tmp_file)
 	if manifest and 'version' in manifest:
 		pp(manifest['version'])
@@ -46,3 +49,5 @@ for ext in extlist:
 		path = 'crawled/crx_history/'+ext_id+'/'
 		os.makedirs(path, exist_ok=True)
 		shutil.move(tmp_file, path+version+'.zip')
+	else:
+		os.remove(tmp_file)
