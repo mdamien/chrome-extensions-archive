@@ -50,4 +50,9 @@ for ext in extlist:
 		os.makedirs(path, exist_ok=True)
 		shutil.move(tmp_file, path+version+'.zip')
 	else:
-		os.remove(tmp_file)
+		try:
+		    os.remove(tmp_file)
+		except OSError:
+		    pass
+
+GIT_AUTHOR_DATE="1459717948 +0200"
