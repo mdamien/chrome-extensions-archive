@@ -47,18 +47,22 @@ def scrap(html, data):
     data['full_description'] = soup.find('pre').text.strip()
 
 
-def parse_page(ext_id):
+def parse_page(html):
+    if len(html) == 0:
+        print('-- NEED TO RE-DOWNLOAD THIS PAGE')
+        return {}
+    data = microdata(html)
+    pagemap_extract(html, data)
+    scrap(html, data)
+    return data
+
+
+def parse_stored_page(ext_id):
     filename = 'pages/{ID}.html'.format(ID=ext_id)
     if os.path.isfile(filename):
         with open(filename) as f:
             html = f.read().strip()
-            if len(html) == 0:
-                print('-- NEED TO RE-DOWNLOAD THIS PAGE')
-                return {}
-            data = microdata(html)
-            pagemap_extract(html, data)
-            scrap(html, data)
-            return data
+            return parse_page(html)
     else:
         return {}
 
@@ -130,7 +134,7 @@ if __name__ == '__main__':
     for i, url in enumerate(json.load(open('extension_list.json'))):
         ext_id = url.split('/')[-1]
         print(ext_id)
-        data = parse_page(ext_id)
+        data = parse_stored_page(ext_id)
         data['url'] = url
         data['ext_id'] = ext_id
         manifest = extract_manifest(ext_id)

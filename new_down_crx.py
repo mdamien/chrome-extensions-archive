@@ -1,58 +1,78 @@
 import json
 from pprint import pprint as pp
 from download_crx import down
-from parse_infos import extract_manifest_of_file
+from parse_infos import extract_manifest_of_file, parse_page
 from random import shuffle
+
+from termcolor import colored
 
 import os
 import shutil
+import requests
 
 TMP_FILE = 'crawled/tmp/tmp_crx_{ext_id}.zip'
-
-"""
-#one time thing for crx/ already downloaded
-
-extlist = json.load(open('data/top10000.json'))
-ids = set([ext['ext_id'] for ext in extlist])
-
-for name in os.listdir('crawled/crx'):
-	print(name)
-	ext_id = name.split('.')[0]
-	if ext_id in ids:
-		print('ok')
-		full_filename = 'crawled/crx/'+name
-		manifest = extract_manifest_of_file(full_filename)
-		if manifest and 'version' in manifest:
-			print(manifest['version'])
-			version = manifest['version']
-			path = 'crawled/crx_history/'+ext_id+'/'
-			os.makedirs(path, exist_ok=True)
-			shutil.move(full_filename, path+version+'.zip')
-"""
+DEST_DIR = 'crawled/crx_history/{ext_id}/'
+DEST_FILE = '{dir}/{version}.zip'
 
 extlist = json.load(open('data/top10000.json'))
-shuffle(extlist)
+#shuffle(extlist)
+
+bad = lambda x: colored(x, 'red')
 
 for ext in extlist:
 	ext_id = ext['ext_id']
+	print()
 	print(ext['name'])
 	print(ext_id)
 	tmp_file = TMP_FILE.format(ext_id=ext_id)
+
+	"""
+	#get latest version stored #TODOOOO#
+	if os.path.isfile(crx_file):
+	"""
+
+	#get current version
+	url = ext['url']
 	try:
-		down(ext_id, tmp_file)
+		req = requests.get(url)
+		if req.status_code != 200:
+			print(bad('bad status code:'), req.status_code)
+			continue
+		page_html = req.text
 	except Exception as e:
-		print('fail to download:', e)
-	manifest = extract_manifest_of_file(tmp_file)
-	if manifest and 'version' in manifest:
-		pp(manifest['version'])
-		version = manifest['version']
-		path = 'crawled/crx_history/'+ext_id+'/'
-		os.makedirs(path, exist_ok=True)
-		shutil.move(tmp_file, path+version+'.zip')
-	else:
+		print(bad('fail to download page: '+url), e)
+		continue
+	infos = parse_page(page_html)
+	current_version = infos['version']
+	print('current_version:', current_version)
+
+	target_dir_path = DEST_DIR.format(ext_id=ext_id)
+	target_file_path = DEST_FILE.format(dir=target_dir_path, version=current_version)
+
+	if not os.path.isfile(target_file_path):
 		try:
-		    os.remove(tmp_file)
-		except OSError:
-		    pass
+			down(ext_id, tmp_file)
+		except Exception as e:
+			print(bad('fail to download crx:'), e)
+			continue
+		manifest = extract_manifest_of_file(tmp_file)
+		if manifest and 'version' in manifest:
+			version = manifest['version']
+			print('manifest version:', version)
+			if 'version_name' in manifest and manifest['version_name'] == current_version:
+				#todo: store version_name instead when available ?
+				print(bad('version name is the right one:'), manifest['version_name'])
+				os.remove(tmp_file)
+				continue
+			assert current_version == version
+			os.makedirs(target_dir_path, exist_ok=True)
+			shutil.move(tmp_file, target_file_path)
+		else:
+			try:
+			    os.remove(tmp_file)
+			except OSError:
+			    pass
+	else:
+		print('latest version already downloaded')
 
 GIT_AUTHOR_DATE="1459717948 +0200"
