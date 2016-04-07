@@ -1,11 +1,15 @@
 import urllib.request
 import json
 import os.path
+import random
 
 
-FILENAME = "pages/{ID}.html"
+FILENAME = "crawled/pages/{ID}.html"
 
-for url in json.load(open('extension_list.json')):
+urls = json.load(open('crawled/sitemap/result.json'))
+random.shuffle(urls)
+
+for url in urls:
     print(url)
     ext_id = url.split('/')[-1]
     filename = FILENAME.format(ID=ext_id)

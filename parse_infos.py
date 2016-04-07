@@ -58,7 +58,7 @@ def parse_page(html):
 
 
 def parse_stored_page(ext_id):
-    filename = 'pages/{ID}.html'.format(ID=ext_id)
+    filename = 'crawled/pages/{ID}.html'.format(ID=ext_id)
     if os.path.isfile(filename):
         with open(filename) as f:
             html = f.read().strip()
@@ -128,10 +128,10 @@ if __name__ == '__main__':
     DATA = []
 
     def save():
-        with open('enriched.json','w') as f:
+        with open('data/pages_parsed.json','w') as f:
             json.dump(DATA, f, indent=2, sort_keys=True)
 
-    for i, url in enumerate(json.load(open('extension_list.json'))):
+    for i, url in enumerate(json.load(open('crawled/sitemap/final.json'))):
         ext_id = url.split('/')[-1]
         print(ext_id)
         data = parse_stored_page(ext_id)

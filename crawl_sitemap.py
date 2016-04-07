@@ -2,7 +2,10 @@ from __future__ import with_statement # we'll use this later, has to be here
 from argparse import ArgumentParser
 
 import requests
+from requests.packages.urllib3.util.retry import Retry
+from requests.adapters import HTTPAdapter
 import lxml.etree
+import json
 
 
 class Sitemap(object):
@@ -40,15 +43,20 @@ def sitemap_urls_from_robots(robots_text):
         if line.lstrip().startswith('Sitemap:'):
             yield line.split(':', 1)[1].strip()
 
-import json
-
 results = set()
 
+session = requests.Session()
+retries = Retry(total=5,
+                backoff_factor=0.1,
+                status_forcelist=[503])
+session.mount("https://chrome.google.com/", HTTPAdapter(max_retries=retries))
+
 def save():
-    json.dump(sorted(list(results)), open('sitemap/r{}.json'.format(len(results)),'w'), indent=2)
+    json.dump(sorted(list(results)), 
+        open('crawled/sitemap/result.json'.format(len(results)),'w'), indent=2)
 
 def parse_sitemap(url):
-    resp = requests.get(url)
+    resp = session.get(url)
     try:
         sitemap = Sitemap(resp.content)
     except:
@@ -65,8 +73,4 @@ def parse_sitemap(url):
     save()
 
 if __name__ == '__main__':
-    options = ArgumentParser()
-    options.add_argument('-u', '--url', action='store', dest='url', help='The file contain one url per line')
-    options.add_argument('-o', '--output', action='store', dest='out', default='out.txt', help='Where you would like to save the data')
-    args = options.parse_args()
-    urls = parse_sitemap(args.url)
+    parse_sitemap("https://chrome.google.com/webstore/sitemap")

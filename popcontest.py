@@ -1,6 +1,6 @@
 import json
 
-DATA = json.load(open('enriched.json'))
+DATA = json.load(open('data/pages_parsed.json'))
 
 def safeint(n):
     try:
@@ -9,4 +9,5 @@ def safeint(n):
         return -1 
 
 filtered = sorted((x for x in DATA), key=lambda x: -safeint(x.get('user_count')))[:10000]
-json.dump(filtered, open('top10000.json','w'), indent=2, sort_keys=True)
+print(filtered[0])
+json.dump(filtered, open('data/new_top10000.json','w'), indent=2, sort_keys=True)

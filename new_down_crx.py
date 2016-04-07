@@ -15,7 +15,7 @@ DEST_DIR = 'crawled/crx_history/{ext_id}/'
 DEST_FILE = '{dir}/{version}.zip'
 
 extlist = json.load(open('data/top10000.json'))
-#shuffle(extlist)
+shuffle(extlist)
 
 bad = lambda x: colored(x, 'red')
 
@@ -25,11 +25,6 @@ for ext in extlist:
 	print(ext['name'])
 	print(ext_id)
 	tmp_file = TMP_FILE.format(ext_id=ext_id)
-
-	"""
-	#get latest version stored #TODOOOO#
-	if os.path.isfile(crx_file):
-	"""
 
 	#get current version
 	url = ext['url']
@@ -49,7 +44,9 @@ for ext in extlist:
 	target_dir_path = DEST_DIR.format(ext_id=ext_id)
 	target_file_path = DEST_FILE.format(dir=target_dir_path, version=current_version)
 
+	#download extension
 	if not os.path.isfile(target_file_path):
+		#^^^ caveat, the guy can have the same version name displayed but different versions
 		try:
 			down(ext_id, tmp_file)
 		except Exception as e:
@@ -59,12 +56,13 @@ for ext in extlist:
 		if manifest and 'version' in manifest:
 			version = manifest['version']
 			print('manifest version:', version)
-			if 'version_name' in manifest and manifest['version_name'] == current_version:
-				#todo: store version_name instead when available ?
-				print(bad('version name is the right one:'), manifest['version_name'])
+			#current_version represent version_name so it can be different than the version stored
+			target_file_path = DEST_FILE.format(dir=target_dir_path, version=version)
+			if os.path.isfile(target_file_path):
+				print(bad("file is already here, here's the version_name"), manifest['version_name'])
 				os.remove(tmp_file)
 				continue
-			assert current_version == version
+			#assert current_version == version_name or version
 			os.makedirs(target_dir_path, exist_ok=True)
 			shutil.move(tmp_file, target_file_path)
 		else:
