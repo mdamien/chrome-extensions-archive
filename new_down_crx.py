@@ -14,7 +14,7 @@ TMP_FILE = 'crawled/tmp/tmp_crx_{ext_id}.zip'
 DEST_DIR = 'crawled/crx_history/{ext_id}/'
 DEST_FILE = '{dir}/{version}.zip'
 
-extlist = json.load(open('data/top10000.json'))
+extlist = json.load(open('data/new_top10k.json'))
 shuffle(extlist)
 
 bad = lambda x: colored(x, 'red')
@@ -59,7 +59,9 @@ for ext in extlist:
 			#current_version represent version_name so it can be different than the version stored
 			target_file_path = DEST_FILE.format(dir=target_dir_path, version=version)
 			if os.path.isfile(target_file_path):
-				print(bad("file is already here, here's the version_name"), manifest['version_name'])
+				print(bad("file is already here, here's the version_name"), 
+					manifest.get('version_name'),
+					'and .version=',manifest.get('version'))
 				os.remove(tmp_file)
 				continue
 			#assert current_version == version_name or version

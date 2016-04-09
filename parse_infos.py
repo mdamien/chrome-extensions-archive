@@ -10,6 +10,7 @@ import sys
 from subprocess import *
 from shlex import split
 
+from pprint import pprint as pp
 
 from zipfile import ZipFile, BadZipFile
 
@@ -18,7 +19,8 @@ from bs4 import BeautifulSoup
 mde = MicrodataExtractor()
 
 def microdata(html):
-    microdata = mde.extract(html)['items'][0]['properties']
+    microdata = mde.extract(html)
+    microdata = microdata['items'][0]['properties']
     def attrget(item, key):
         keys = key.split('.')
         for key in keys:
@@ -117,6 +119,9 @@ if __name__ == '__main__':
     assert decomment("{/*lol*/}").strip() == """{}"""
 
     #test edge case
+    parse_stored_page('mmebchclelfffacppnnajkbomhpcdpfa')
+    parse_stored_page('kfbamhbocmmdbiidjmkkjjockeblflji')
+
     extract_manifest('pecialgmmceelbdjljhdmifgnnplgbkp')
     extract_manifest('epinhnanplaehkdjopehcackkoccdpja')
     extract_manifest('fjncnaogemmlhdgigpjlmjaalmmagnpf')
