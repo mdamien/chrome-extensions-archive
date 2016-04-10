@@ -119,6 +119,7 @@ if __name__ == '__main__':
     assert decomment("{/*lol*/}").strip() == """{}"""
 
     #test edge case
+    parse_stored_page('bikioccmkafdpakkkcpdbppfkghcmihk')
     parse_stored_page('mmebchclelfffacppnnajkbomhpcdpfa')
     parse_stored_page('kfbamhbocmmdbiidjmkkjjockeblflji')
 
@@ -142,8 +143,8 @@ if __name__ == '__main__':
         data = parse_stored_page(ext_id)
         data['url'] = url
         data['ext_id'] = ext_id
-        manifest = extract_manifest(ext_id)
-        data['manifest'] = manifest
+        #manifest = extract_manifest(ext_id)
+        #data['manifest'] = manifest
         DATA.append(data)
 
         if i % 1000 == 0:

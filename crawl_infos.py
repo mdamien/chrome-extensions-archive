@@ -6,7 +6,7 @@ import random
 
 FILENAME = "crawled/pages/{ID}.html"
 
-urls = json.load(open('crawled/sitemap/result.json'))
+urls = json.load(open('crawled/sitemap/final.json'))
 random.shuffle(urls)
 
 for url in urls:
