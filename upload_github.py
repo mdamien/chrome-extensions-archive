@@ -7,13 +7,13 @@ from github import Github
 g = None
 org = None
 
-def create_repo(ext_id, name):
+def create_repo(ext_id, name, url=None):
 	global g, org
 	if not org:
 		g = Github(GITHUB_TOKEN)
 		org = g.get_organization('chrome-exts')
 	try:
-		org.create_repo(ext_id, description=name)
+		org.create_repo(ext_id, description=name, homepage=url)
 	except github.GithubException as e:
 		print(e)
 

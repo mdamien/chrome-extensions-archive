@@ -10,9 +10,13 @@ from distutils.version import LooseVersion
 
 from upload_github import create_repo
 
+from blacklist import blacklist
+
 """
 todo:
 -make backups  :D :D :D :D (gitlab, my own "codesearch",..)
+-make this script asynchronous
+-track latest version pushed (to only update new versions arrived)
 """
 
 def attrget(item, key):
@@ -51,6 +55,9 @@ if __name__ == '__main__':
 	doctest.testmod()
 
 	ext_list = json.load(open('data/new_top10k.json'))[20:]
+
+	ext_list = [x for x in ext_list if x['ext_id'] not in blacklist]
+
 	os.chdir('crawled')
 	for ext in ext_list[:1000]:
 		ext_id = ext['ext_id']
@@ -60,7 +67,7 @@ if __name__ == '__main__':
 		if os.path.exists(crx_dir):
 			if ext_id not in created:
 				print('current dir',os.getcwd())
-				create_repo(ext_id, ext.get('name'))
+				create_repo(ext_id, ext.get('name'), ext.get('url'))
 				created.append(ext_id)
 				save_created()
 			tmp_dir = 'tmp/history/'+ext_id
@@ -70,6 +77,8 @@ if __name__ == '__main__':
 			files = sort_semverfiles(files)
 			prevdir = None
 			for i, file in enumerate(files):
+				print('doing', file)
+				print('dtrx..')
 				subprocess.call(['dtrx',file], stdout=FNULL, stderr=subprocess.STDOUT)
 				dirname = file.replace('.zip','') # = version_name
 				os.chdir(dirname) #security is crazy low
@@ -86,14 +95,15 @@ if __name__ == '__main__':
 					os.system('git commit -m "{}" > /dev/null'.format(
 						shlex.quote(dirname)))
 				if i == len(files)-1:
+					print('git push')
 					os.system('git remote add origin git@github.com:chrome-exts/{}.git'.format(ext_id))
 					os.system('git push -uf origin master')
 				os.chdir('..')
 				prevdir = dirname
-			print(os.listdir())
+			print(ext_id,'done')
 			os.chdir('../../..')
-			print('current dir',os.getcwd())
 			shutil.rmtree(tmp_dir)
 		else:
 			print('no crx, so saddddd')
+		print()
 		print()
