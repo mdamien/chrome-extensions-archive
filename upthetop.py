@@ -15,12 +15,6 @@ from blacklist import BLACKLIST
 
 from random import shuffle
 
-"""
-todo:
--make backups  :D :D :D :D (gitlab, my own "codesearch",..)
--track latest version pushed (to only update new versions arrived)
-"""
-
 def attrget(item, key):
     keys = key.split('.')
     for key in keys:
