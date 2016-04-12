@@ -2,3 +2,5 @@ requests
 extruct
 pygithub
 termcolor
+portalocker
+

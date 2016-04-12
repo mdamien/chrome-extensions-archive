@@ -13,7 +13,13 @@ def create_repo(ext_id, name, url=None):
 		g = Github(GITHUB_TOKEN)
 		org = g.get_organization('chrome-exts')
 	try:
-		org.create_repo(ext_id, description=name, homepage=url)
+		try:
+			repo = org.get_repo(ext_id)
+			repo.edit(name=ext_id, description=name, 
+				homepage=url, has_issues=False, has_wiki=False)
+		except github.GithubException as e:
+			print(e)
+			org.create_repo(ext_id, description=name, homepage=url)
 	except github.GithubException as e:
 		print(e)
 
