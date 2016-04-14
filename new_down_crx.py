@@ -28,6 +28,8 @@ good = lambda x: colored(x, 'green')
 
 for ext in extlist:
 	ext_id = ext['ext_id']
+	if False and ext_id != 'kfljpkcacgcnnnipmdlgmlnmckmcpoef':
+		continue
 	print()
 	print(ext['name'])
 	print(ext_id)

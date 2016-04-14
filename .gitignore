@@ -1,5 +1,6 @@
 data/
 notes/
 crawled/
+server/
 secreeets.py
 *.pyc

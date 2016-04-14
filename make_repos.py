@@ -2,14 +2,11 @@ import os
 import json
 import shlex
 import shutil
-import portalocker
 
 import subprocess
 from subprocess import STDOUT, check_output
 
 from distutils.version import LooseVersion
-
-from upload_github import create_repo
 
 from blacklist import BLACKLIST
 
@@ -34,29 +31,17 @@ def sort_semverfiles(files):
 		return LooseVersion(filename.replace('.zip',''))
 	return sorted(files, key=keyfunc)
 
-CREATED_FILE = '../../../../data/repo_created'
-def get_created():
-	with portalocker.Lock(CREATED_FILE, mode='r', truncate=None,
-			flags=portalocker.LOCK_SH, timeout=1) as f:
-		return json.load(f)
-
-def add_to_created(ext_id, infos):
-	#lock strategy fail :( - dafuq damien!
-	created = get_created()
-	created[ext_id] = infos
-	with portalocker.Lock(CREATED_FILE, mode='a', 
-			flags=portalocker.LOCK_EX, timeout=1) as f:
-		json.dump(created, f, indent=2)
-
 FNULL = open(os.devnull, 'w')
 
 EXT_LIST = json.load(open('data/new_top10k.json'))
 EXT_LIST = [x for x in EXT_LIST if x['ext_id'] not in BLACKLIST]
+EXT_LIST = EXT_LIST[:1000]
 shuffle(EXT_LIST)
 
-def upload_one(ext):
+def create_one(ext):
 	ext_id = ext['ext_id']
-	print(ext_id, ext.get('name'))
+	name = ext.get('name')
+	print(ext_id, name)
 	print(os.getcwd())
 	crx_dir = "crx_history/"+ext_id
 	if os.path.exists(crx_dir):
@@ -66,10 +51,6 @@ def upload_one(ext):
 		files = os.listdir()
 		files = sort_semverfiles(files)
 		prevdir = None
-		if ext_id not in get_created():
-			print('current dir',os.getcwd())
-			create_repo(ext_id, ext.get('name'), ext.get('url'))
-			add_to_created(ext_id, files[-1].replace('.zip',''))
 		for i, file in enumerate(files):
 			print('doing', file)
 			print('dtrx..')
@@ -83,17 +64,21 @@ def upload_one(ext):
 				os.system('git add -A . > /dev/null')
 				os.system('git commit -m "{}" > /dev/null'.format(
 					shlex.quote(dirname)))
+				os.system('echo {} > .git/description'.format(
+					shlex.quote(name)))
 			else:
 				os.system('mv ../'+prevdir+'/.git .')
 				os.system('git add -A . > /dev/null')
 				os.system('git commit -m "{}" > /dev/null'.format(
 					shlex.quote(dirname)))
-			if i == len(files)-1:
-				print('git push')
-				os.system('git remote add origin git@github.com:chrome-exts/{}.git'.format(ext_id))
-				os.system('git push -uf origin master')
 			os.chdir('..')
 			prevdir = dirname
+		final_target_dir = '../../../../server/repos/'+ext_id
+		try:
+			shutil.rmtree(final_target_dir)
+		except:
+			pass
+		shutil.move(prevdir, final_target_dir)
 		print(ext_id,'done')
 		os.chdir('../../..')
 		shutil.rmtree(tmp_dir)
@@ -108,4 +93,4 @@ if __name__ == '__main__':
 
 	os.chdir('crawled')
 	for ext in EXT_LIST:
-		upload_one(ext)
+		create_one(ext)
