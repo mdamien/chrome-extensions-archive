@@ -46,6 +46,8 @@ def create_one(ext):
 	crx_dir = "crx_history/"+ext_id
 	if os.path.exists(crx_dir):
 		tmp_dir = 'tmp/history/'+ext_id
+		if os.path.exists(tmp_dir):
+			return
 		shutil.copytree(crx_dir, tmp_dir)
 		os.chdir(tmp_dir)
 		files = os.listdir()
