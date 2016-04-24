@@ -3,7 +3,7 @@ from jinja2 import Template
 
 template = Template(open('stats/template.html').read())
 
-exts = json.load(open('data/enriched.json'))
+exts = json.load(open('data/pages_parsed.json'))
 print('enriched loaded')
 crxs = json.load(open('data/crx_stats.json'))
 print('file stats loaded')
