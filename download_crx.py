@@ -3,7 +3,7 @@ import urllib.request
 import os.path
 import sys
 
-DOWNLOAD_URL = "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=31.0.1609.0&x=id%3D{ID}%26uc"
+DOWNLOAD_URL = "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=49.0.2623.108&x=id%3D{ID}%26uc"
 DESTINATION = "crx/{ID}.crx"
 
 def down(ext_id, filename):

@@ -10,7 +10,7 @@ import sys
 import os
 import shutil
 import requests
-
+from store_infos_history import store_infos_history
 
 ORDER_BY_POP = len(sys.argv) > 1 and sys.argv[1] == 'by_pop'
 SPECIFIC_EXT = sys.argv[1] if not ORDER_BY_POP and len(sys.argv) > 1 else None
@@ -49,6 +49,7 @@ for ext in extlist:
 		print(bad('fail to download page: '+url), e)
 		continue
 	infos = parse_page(page_html)
+	store_infos_history(ext_id, infos)
 	current_version = infos['version']
 	print('current_version:', current_version)
 

@@ -8,6 +8,9 @@ host .zips and .git repos on s3
 setup phabricator as a repository viewer
 
 automation:
-   - crx download
+   - sitemaps => update ext-list
+   - pages crawl => update user counts
+      - popcontest => update ext to download
+   - crx crawl => download new crx if exist
 
 goal: improve coverage to more than the top 10k + be careful of removed extension and new trendy ones

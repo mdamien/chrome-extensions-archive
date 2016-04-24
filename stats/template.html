@@ -15,7 +15,12 @@
         padding: 0 10px
     }
     h1, h2, h3 {
-        line-height:1.2
+        line-height:1.2;
+        margin: 0;
+    }
+    h2 {
+        font-size: 120%;
+        line-height: 1;
     }
     li {
         list-style: none;
@@ -26,6 +31,10 @@
     }
     a {
         color: #111;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
     }
     ul {
         margin-top: 0;
@@ -33,20 +42,21 @@
     </style>
 </head>
 <body>
-    <h1>Chrome extensions archive</h1>
+    <h1>
+        Chrome extensions archive
+    </h1>
+    <div style='text-align: right'><a href="https://github.com/mdamien/chrome-extensions-archive">github.com/mdamien/chrome-extensions-archive</a></div>
     <hr/>
     {% for ext in exts %}
     <div>
-        <a href="{{ ext.url }}">
-            {# <img src="{{ ext.image }}" width=20/> #}
-            {{ ext.name }}
-        </a>
+        <h2 id="{{ ext.ext_id }}"><a href="{{ ext.url }}">{{ ext.name }}</a></h2>
+        <small>{{ ext.ext_id }}</small>
         <ul>
         {% for file in ext.files %}
             <li>
                 <a href="https://storage.googleapis.com/chrmexts/crx/{{ ext.ext_id }}/{{ file.name }}">
-                    {{ file.name.replace('.zip','') }}
-                </a> - <small>{{ file.size | filesizeformat }} </small>
+                    {{ file.name.replace('.zip','') }} - <small>{{ file.size | filesizeformat }}</small>
+                </a>
             </li>
         {% endfor %}
         </ul>
