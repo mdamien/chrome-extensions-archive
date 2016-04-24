@@ -11,7 +11,9 @@ import os
 import shutil
 import requests
 
+
 ORDER_BY_POP = len(sys.argv) > 1 and sys.argv[1] == 'by_pop'
+SPECIFIC_EXT = sys.argv[1] if not ORDER_BY_POP and len(sys.argv) > 1 else None
 print('ORDER_BY_POP ?', ORDER_BY_POP)
 
 TMP_FILE = 'crawled/tmp/tmp_crx_{ext_id}.zip'
@@ -28,7 +30,7 @@ good = lambda x: colored(x, 'green')
 
 for ext in extlist:
 	ext_id = ext['ext_id']
-	if False and ext_id != 'kfljpkcacgcnnnipmdlgmlnmckmcpoef':
+	if SPECIFIC_EXT and ext_id != SPECIFIC_EXT:
 		continue
 	print()
 	print(ext['name'])

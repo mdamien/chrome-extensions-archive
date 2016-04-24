@@ -11,4 +11,4 @@ for ext in exts:
 	ext['files'] = crxs.get(ext_id,[])
 
 result = template.render(exts=exts)
-open('stats/result.html','w').write(result)
+open('stats/index.html','w').write(result)

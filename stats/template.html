@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Chrome extensions history</title>
+    <title>Chrome extensions archive</title>
     <style type="text/css">
     body {
         font: 13px 'Segoe UI','Segoe UI Web Regular','Segoe UI Symbol','Lato','Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -35,7 +35,7 @@
 <body>
     <h1>Chrome extensions archive</h1>
     <hr/>
-    {% for ext in exts[:20] %}
+    {% for ext in exts %}
     <div>
         <a href="{{ ext.url }}">
             {# <img src="{{ ext.image }}" width=20/> #}
@@ -43,7 +43,11 @@
         </a>
         <ul>
         {% for file in ext.files %}
-            <li><a href="https://storage.googleapis.com/chrmexts/crx/{{ ext.ext_id }}/{{ file }}">{{ file.replace('.zip','') }}</a></li>
+            <li>
+                <a href="https://storage.googleapis.com/chrmexts/crx/{{ ext.ext_id }}/{{ file.name }}">
+                    {{ file.name.replace('.zip','') }}
+                </a> - <small>{{ file.size | filesizeformat }} </small>
+            </li>
         {% endfor %}
         </ul>
     </div>

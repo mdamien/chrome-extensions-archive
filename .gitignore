@@ -4,3 +4,4 @@ crawled/
 server/
 secreeets.py
 *.pyc
+index.html
