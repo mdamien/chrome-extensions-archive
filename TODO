@@ -2,3 +2,12 @@ chrome-exts.github.io with a simple page to explore the data (static or not)
 add tags to git to be able to link easily
 nicer git interface + codesearch
 first pass of analysis of trackers & co.
+
+
+host .zips and .git repos on s3
+setup phabricator as a repository viewer
+
+automation:
+   - crx download
+
+goal: improve coverage to more than the top 10k + be careful of removed extension and new trendy ones

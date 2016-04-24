@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Chrome extensions history</title>
+    <style type="text/css">
+    body {
+        font: 13px 'Segoe UI','Segoe UI Web Regular','Segoe UI Symbol','Lato','Helvetica Neue',Helvetica,Arial,sans-serif;
+        margin: 40px auto;
+        max-width: 650px;
+        line-height: 1.6;
+        font-size: 18px;
+        color: #444;
+        padding: 0 10px
+    }
+    h1, h2, h3 {
+        line-height:1.2
+    }
+    li {
+        list-style: none;
+    }
+    li a {
+        color: #333;
+        font-size: 80%;
+    }
+    a {
+        color: #111;
+    }
+    ul {
+        margin-top: 0;
+    }
+    </style>
+</head>
+<body>
+    <h1>Chrome extensions archive</h1>
+    <hr/>
+    {% for ext in exts[:20] %}
+    <div>
+        <a href="{{ ext.url }}">
+            {# <img src="{{ ext.image }}" width=20/> #}
+            {{ ext.name }}
+        </a>
+        <ul>
+        {% for file in ext.files %}
+            <li><a href="https://storage.googleapis.com/chrmexts/crx/{{ ext.ext_id }}/{{ file }}">{{ file.replace('.zip','') }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</body>
+</html>

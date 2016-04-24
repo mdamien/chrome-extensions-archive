@@ -3,4 +3,5 @@ extruct
 pygithub
 termcolor
 portalocker
-
+tqdm
+jinja2
