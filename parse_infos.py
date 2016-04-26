@@ -28,6 +28,7 @@ def microdata(html):
         if item == {}: return None
         return item
     keys = (
+        'url',
         'name',
         'version',
         'aggregateRating.properties.ratingCount',

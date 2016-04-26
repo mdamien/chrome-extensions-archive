@@ -10,7 +10,7 @@ import sys
 import os
 import shutil
 import requests
-from store_infos_history import store_infos_history
+from store_infos_history import is_stored_recent, store_infos_history, latest_stored, is_404
 
 ORDER_BY_POP = len(sys.argv) > 1 and sys.argv[1] == 'by_pop'
 SPECIFIC_EXT = sys.argv[1] if not ORDER_BY_POP and len(sys.argv) > 1 else None
@@ -20,7 +20,10 @@ TMP_FILE = 'crawled/tmp/tmp_crx_{ext_id}.zip'
 DEST_DIR = 'crawled/crx_history/{ext_id}/'
 DEST_FILE = '{dir}/{version}.zip'
 
-extlist = json.load(open('data/new_top10k.json'))
+extlist = json.load(open('data/__page_history_all.json'))
+
+if not SPECIFIC_EXT:
+	extlist = extlist[:20000]
 
 if not ORDER_BY_POP:
 	shuffle(extlist)
@@ -37,8 +40,13 @@ for ext in extlist:
 	print(ext_id)
 	tmp_file = TMP_FILE.format(ext_id=ext_id)
 
+	latest = latest_stored(ext_id)
+	if is_404(latest):
+		continue
 	#get current version
 	url = ext['url']
+	if url is None:
+		url = "https://chrome.google.com/webstore/detail/_/"+ext_id
 	try:
 		req = requests.get(url)
 		if req.status_code != 200:
@@ -49,7 +57,8 @@ for ext in extlist:
 		print(bad('fail to download page: '+url), e)
 		continue
 	infos = parse_page(page_html)
-	#store_infos_history(ext_id, infos)
+	if not is_stored_recent(ext_id):
+		store_infos_history(ext_id, infos)
 	current_version = infos['version']
 	print('current_version:', current_version)
 

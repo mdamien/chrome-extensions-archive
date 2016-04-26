@@ -15,12 +15,16 @@ DIR = 'crawled/crx_history/'
 ext_obj = {}
 exts = []
 
+TO_RM = []
 for ext in tqdm(os.listdir(DIR)):
 	files = os.listdir(DIR+ext)
 	files_details = []
 	for file in sort_semverfiles(files):
 		fullpath = DIR+ext+'/'+file
 		size = os.path.getsize(fullpath)
+		if size < 10:
+			print(ext, file, 'IS 0000000', size)
+			TO_RM.append('rm '+fullpath)
 		files_details.append({
 			'name': file,
 			'size': size,
@@ -31,6 +35,11 @@ for ext in tqdm(os.listdir(DIR)):
 		'files': files,
 	})
 	ext_obj[ext] = files_details
+
+if len(TO_RM) > 0:
+	for RM in TO_RM:
+		print(RM)
+	YOU_HAVE_FILES_TO_DELETE
 
 exts.sort(key=lambda x: -len(x['files']))
 
