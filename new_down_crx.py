@@ -49,7 +49,7 @@ for ext in extlist:
 		print(bad('fail to download page: '+url), e)
 		continue
 	infos = parse_page(page_html)
-	store_infos_history(ext_id, infos)
+	#store_infos_history(ext_id, infos)
 	current_version = infos['version']
 	print('current_version:', current_version)
 

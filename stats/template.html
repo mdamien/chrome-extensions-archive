@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Chrome extensions archive</title>
+    <title>Chrome Extensions Archive</title>
     <style type="text/css">
     body {
         font: 13px 'Segoe UI','Segoe UI Web Regular','Segoe UI Symbol','Lato','Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -39,24 +39,40 @@
     ul {
         margin-top: 0;
     }
+    .deleted * {
+        color: red;
+    }
+    .extlink a {
+        color: #222;
+        opacity: 0;
+    }
+    div:hover > .extlink a { opacity: 1; }
     </style>
 </head>
 <body>
     <h1>
-        Chrome extensions archive
+        Chrome Extensions Archive
     </h1>
     <div style='text-align: right'><a href="https://github.com/mdamien/chrome-extensions-archive">github.com/mdamien/chrome-extensions-archive</a></div>
     <hr/>
-    {% for ext in exts %}
-    <div>
-        <h2 id="{{ ext.ext_id }}"><a href="{{ ext.url }}">{{ ext.name }}</a></h2>
-        <small>{{ ext.ext_id }}</small>
+    <div style="text-align: center">
+        <strong>{{ exts_count }}</strong> extensions, <strong>{{ files_count }}</strong> versions<br/>
+        Last update: {{ now.strftime('%Y-%m-%d') }}
+    </div>
+    <hr/>
+    {% for ext in exts[:20] %}
+    <div{% if ext.deleted %} class="deleted"{% endif %}>
+        <small class="extlink"><a href="#{{ ext.ext_id }}">#{{ ext.ext_id }}</a></small>
+        <h2 id="{{ ext.ext_id }}">
+            <a href="{{ ext.url }}">{{ ext.name }}</a>
+        </h2>
         <ul>
         {% for file in ext.files %}
             <li>
-                <a href="https://storage.googleapis.com/chrmexts/crx/{{ ext.ext_id }}/{{ file.name }}">
+                <a href="{{ file.storage_url }}">
                     {{ file.name.replace('.zip','') }} - <small>{{ file.size | filesizeformat }}</small>
                 </a>
+                <small><a target="_blank" rel="noreferrer" href="{{ VIEW_SOURCE_URL }}{{ file.storage_url }}">(view source)</a></small>
             </li>
         {% endfor %}
         </ul>

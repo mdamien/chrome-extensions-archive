@@ -5,3 +5,4 @@ termcolor
 portalocker
 tqdm
 jinja2
+arrow
