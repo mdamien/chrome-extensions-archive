@@ -6,8 +6,8 @@ from tqdm import tqdm
 
 import json, requests
 
-from store_infos_history import store_infos_history, is_stored_recent, TO_RM
-from parse_infos import parse_page
+from extstats.store_infos_history import store_infos_history, is_stored_recent, TO_RM
+from extstats.parse_infos import parse_page
 
 from termcolor import colored
 bad = lambda x: colored(x, 'red')

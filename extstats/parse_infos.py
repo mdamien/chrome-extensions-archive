@@ -69,8 +69,8 @@ def parse_stored_page(ext_id):
     else:
         return {}
 
-def decomment(json_text):
-    command = split('nodejs decomment.js')
+def uncomment(json_text):
+    command = split('nodejs extstats/uncomment.js')
     process = Popen(command, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     process.stdin.write(json_text.encode('utf-8'))
     result = process.communicate()[0].decode('utf-8')
@@ -104,7 +104,7 @@ def extract_manifest_of_file(crx_file):
                         return json.loads(text, strict=False)
                     except Exception as e:
                         print(e)
-                        text = decomment(text)
+                        text = uncomment(text)
                         return json.loads(text, strict=False)
         except BadZipFile:
             print('fucking interrupted downloads')
@@ -117,7 +117,7 @@ def extract_manifest(ext_id):
     return extract_manifest_of_file(crx_file)
 
 if __name__ == '__main__':
-    assert decomment("{/*lol*/}").strip() == """{}"""
+    assert uncomment("{/*lol*/}").strip() == """{}"""
 
     #test edge case
     parse_stored_page('bikioccmkafdpakkkcpdbppfkghcmihk')

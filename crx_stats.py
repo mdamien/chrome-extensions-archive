@@ -43,11 +43,9 @@ if len(TO_RM) > 0:
 
 exts.sort(key=lambda x: -len(x['files']))
 
-for ext in exts:
+for ext in exts[:10]:
 	print(ext['ext'], len(ext['files']))
 	print(*ext['files'])
-	if len(ext['files']) < 2:
-		break
 
 import json
 with open('data/crx_stats.json','w') as f:

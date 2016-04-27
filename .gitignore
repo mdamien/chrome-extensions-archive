@@ -1,7 +1,4 @@
 data/
 notes/
 crawled/
-server/
-secreeets.py
 *.pyc
-index.html
