@@ -4,9 +4,11 @@
 
 - site -
 
+	SITE IS TOO HEAVY - find a solution
 	diff
 	make data available as json
 
 - other -
 
 	basic malware analyis
+	a .py for all the hardcoded path (one source of truth plz)

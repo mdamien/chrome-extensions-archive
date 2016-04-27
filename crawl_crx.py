@@ -2,9 +2,12 @@ import json
 from pprint import pprint as pp
 from extstats.download_crx import down
 from extstats.parse_infos import extract_manifest_of_file, parse_page
+from extstats.CONSTS import CRX_DIRECTORY
 from random import shuffle
 
 from termcolor import colored
+
+from tqdm import tqdm
 
 import sys
 import os
@@ -17,13 +20,17 @@ SPECIFIC_EXT = sys.argv[1] if not ORDER_BY_POP and len(sys.argv) > 1 else None
 print('ORDER_BY_POP ?', ORDER_BY_POP)
 
 TMP_FILE = 'crawled/tmp/tmp_crx_{ext_id}.zip'
-DEST_DIR = 'crawled/crx_history/{ext_id}/'
+DEST_DIR = CRX_DIRECTORY + '{ext_id}/'
 DEST_FILE = '{dir}/{version}.zip'
 
 extlist = json.load(open('data/PAGES.json'))
 
+"""
+LIMIT = 20000 # DAT 20K LIMIT FOR NOW ?
+
 if not SPECIFIC_EXT:
-    extlist = extlist[:20000]
+    extlist = extlist[:LIMIT]
+"""
 
 if not ORDER_BY_POP:
     shuffle(extlist)
@@ -31,7 +38,9 @@ if not ORDER_BY_POP:
 def bad(x): colored(x, 'red')
 def good(x): colored(x, 'green')
 
-for ext in extlist:
+print = lambda *x: ''
+
+for ext in tqdm(extlist):
     ext_id = ext['ext_id']
     if SPECIFIC_EXT and ext_id != SPECIFIC_EXT:
         continue
@@ -43,22 +52,28 @@ for ext in extlist:
     latest = latest_stored(ext_id)
     if is_404(latest):
         continue
-    # get current version
-    url = ext['url']
-    if url is None:
-        url = "https://chrome.google.com/webstore/detail/_/"+ext_id
-    try:
-        req = requests.get(url)
-        if req.status_code != 200:
-            print(bad('bad status code:'), req.status_code)
+    # print('diff', latest['diff'].days, int(latest['diff'].seconds/3600))
+    if latest['diff'].days == -1:
+        print('using latest stored')
+        infos = latest['content']
+    else:
+        # get current version
+        url = ext['url']
+        if url is None:
+            url = "https://chrome.google.com/webstore/detail/_/"+ext_id
+        try:
+            req = requests.get(url)
+            if req.status_code != 200:
+                print(bad('bad status code:'), req.status_code)
+                continue
+            page_html = req.text
+        except Exception as e:
+            print(bad('fail to download page: '+url), e)
             continue
-        page_html = req.text
-    except Exception as e:
-        print(bad('fail to download page: '+url), e)
-        continue
-    infos = parse_page(page_html)
-    if not is_stored_recent(ext_id):
-        store_infos_history(ext_id, infos)
+        infos = parse_page(page_html)
+        if not is_stored_recent(ext_id):
+            store_infos_history(ext_id, infos)
+            print('saved it :D')
     current_version = infos['version']
     print('current_version:', current_version)
 
@@ -82,7 +97,7 @@ for ext in extlist:
             if os.path.isfile(target_file_path):
                 print(bad("file is already here, here's the version_name"),
                     manifest.get('version_name'),
-                    'and .version=',manifest.get('version'))
+                    'and .version=', manifest.get('version'))
                 os.remove(tmp_file)
                 continue
             print(good('version is added :D'))

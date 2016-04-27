@@ -69,12 +69,14 @@ def parse_stored_page(ext_id):
     else:
         return {}
 
+
 def uncomment(json_text):
     command = split('nodejs extstats/uncomment.js')
     process = Popen(command, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     process.stdin.write(json_text.encode('utf-8'))
     result = process.communicate()[0].decode('utf-8')
     return result
+
 
 def extract_manifest_of_file(crx_file):
     debug = False
@@ -86,7 +88,7 @@ def extract_manifest_of_file(crx_file):
         try:
             with ZipFile(crx_file) as myzip:
                 if debug:
-                    #""" #save file to debug later
+                    # """ #save file to debug later
                     source = myzip.open('manifest.json')
                     target = open('lol.json', "wb")
                     with source, target:
