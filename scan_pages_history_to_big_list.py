@@ -1,6 +1,8 @@
 import json, random, os
 from tqdm import tqdm
 
+from extstats.CONSTS import SITEMAP_FILE
+
 from extstats.store_infos_history import latest_good, TO_RM
 
 DIR = 'crawled/pages_infos_history/'
@@ -9,7 +11,7 @@ random.shuffle(ext_ids)
 
 exts = []
 
-urls = {url.split('/')[-1]:url for url in json.load(open('crawled/sitemap/final.json'))}
+urls = {url.split('/')[-1]:url for url in json.load(open(SITEMAP_FILE))}
 
 for ext_id in tqdm(ext_ids):
     latest = latest_good(ext_id)
@@ -26,10 +28,7 @@ for ext_id in tqdm(ext_ids):
     if len(TO_RM) % 100 == 10:
         print(len(TO_RM))
 
-print(len(exts))
-
 print(len(exts), 'extensions')
-
 
 def safeint(n):
     try:

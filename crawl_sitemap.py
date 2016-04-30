@@ -7,6 +7,9 @@ from requests.adapters import HTTPAdapter
 import lxml.etree
 import json
 
+import shutil
+
+from tqdm import tqdm
 
 class Sitemap(object):
     """Class to parse Sitemap (type=urlset) and Sitemap Index
@@ -55,7 +58,7 @@ def save():
     json.dump(sorted(list(results)), 
         open('crawled/sitemap/result.json'.format(len(results)),'w'), indent=2)
 
-def parse_sitemap(url):
+def parse_sitemap(url, depth=0):
     resp = session.get(url)
     try:
         sitemap = Sitemap(resp.content)
@@ -64,13 +67,15 @@ def parse_sitemap(url):
         print(resp)
         print(resp.content)
         return
+    if depth == 0:
+        sitemap = tqdm(list(sitemap))
     for line in sitemap:
         if '/webstore/sitemap?' in line['loc']:
-            parse_sitemap(line['loc'])
+            parse_sitemap(line['loc'], depth+1)
         else:
             results.add(line['loc'].split('?')[0])
-    print(len(results))
     save()
 
 if __name__ == '__main__':
     parse_sitemap("https://chrome.google.com/webstore/sitemap")
+    shutil.copy('crawled/sitemap/result.json','data/sitemap.json')

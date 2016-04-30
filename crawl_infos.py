@@ -13,7 +13,7 @@ from termcolor import colored
 bad = lambda x: colored(x, 'red')
 good = lambda x: colored(x, 'green')
 
-urls = json.load(open('crawled/sitemap/final.json'))
+urls = json.load(open('data/sitemap.json'))
 random.shuffle(urls)
 
 #for url in urls[11:13]:
