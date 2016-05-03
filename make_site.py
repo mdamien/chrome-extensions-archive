@@ -15,7 +15,6 @@ template = env.get_template('template.html')
 
 VIEW_SOURCE_URL = "https://robwu.nl/crxviewer/crxviewer.html?crx="
 
-
 exts = json.load(open('data/PAGES.json'))
 print('enriched loaded')
 crxs = json.load(open('data/crx_stats.json'))
@@ -38,12 +37,22 @@ def safeint(n):
     except:
         return -1
 
+def split_list(L, n):
+    assert type(L) is list, "L is not a list"
+    for i in range(0, len(L), n):
+        yield L[i:i+n]
+
 exts = sorted((ext for ext in exts if len(ext['files']) > 0),
     key=lambda x: (-safeint(x.get('user_count')), x.get('name')))
 
 files_count = sum(len(ext['files']) for ext in exts)
 
-result = template.render(exts=exts, exts_count=len(exts),
-    files_count=files_count, VIEW_SOURCE_URL=VIEW_SOURCE_URL,
-    now=datetime.datetime.now())
-open('../exts-site/index.html','w').write(result)
+exts_groups = list(split_list(exts, 5000))
+
+for i, group in enumerate(exts_groups):
+	page = i + 1
+	result = template.render(exts=group, exts_count=len(exts),
+	    files_count=files_count, VIEW_SOURCE_URL=VIEW_SOURCE_URL,
+	    now=datetime.datetime.now(), pages=len(exts_groups), page=page)
+	name = 'pages/' + str(page) if page > 1 else 'index'
+	open('../chrome-extensions-archive/{}.html'.format(name), 'w').write(result)

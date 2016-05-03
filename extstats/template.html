@@ -4,50 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Chrome Extensions Archive</title>
-    <style type="text/css">
-    body {
-        font: 13px 'Segoe UI','Segoe UI Web Regular','Segoe UI Symbol','Lato','Helvetica Neue',Helvetica,Arial,sans-serif;
-        margin: 40px auto;
-        max-width: 650px;
-        line-height: 1.6;
-        font-size: 18px;
-        color: #444;
-        padding: 0 10px
-    }
-    h1, h2, h3 {
-        line-height:1.2;
-        margin: 0;
-    }
-    h2 {
-        font-size: 120%;
-        line-height: 1;
-    }
-    li {
-        list-style: none;
-    }
-    li a {
-        color: #333;
-        font-size: 80%;
-    }
-    a {
-        color: #111;
-        text-decoration: none;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-    ul {
-        margin-top: 0;
-    }
-    .deleted * {
-        color: red;
-    }
-    .extlink a {
-        color: #222;
-        opacity: 0.1;
-    }
-    div:hover > .extlink a { opacity: 1; }
-    </style>
+    <link href="/chrome-extensions-archive/style.css" media="screen" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <h1>
@@ -58,6 +15,15 @@
     <div style="text-align: center">
         <strong>{{ exts_count | add_commas }}</strong> extensions, <strong>{{ files_count | add_commas }}</strong> versions<br/>
         Last update: {{ now.strftime('%Y-%m-%d') }}
+    </div>
+    <div style="text-align: center">
+        Pages:
+        {% for p in range(1, pages) %}
+            {% if p == page %}<strong>{% endif %}
+            <a href="/chrome-extensions-archive/{% if p > 1 %}pages/{{p}}{% else %}index{% endif %}.html">{{p}}</a>
+            {% if p == page %}</strong>{% endif %}
+        {% endfor %}
+        (ordered by # of users)
     </div>
     <hr/>
     {% for ext in exts %}

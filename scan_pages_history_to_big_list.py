@@ -15,7 +15,7 @@ urls = {url.split('/')[-1]:url for url in json.load(open(SITEMAP_FILE))}
 
 for ext_id in tqdm(ext_ids):
     latest = latest_good(ext_id)
-    if latest:
+    if latest and 'content' in latest:
         content = latest['content']
         content['ext_id'] = ext_id
         if 'url' not in content:
