@@ -11,7 +11,7 @@ random.shuffle(ext_ids)
 
 exts = []
 
-urls = {url.split('/')[-1]:url for url in json.load(open(SITEMAP_FILE))}
+urls = {url.split('/')[-1]: url for url in json.load(open(SITEMAP_FILE))}
 
 for ext_id in tqdm(ext_ids):
     latest = latest_good(ext_id)
