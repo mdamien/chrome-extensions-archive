@@ -52,8 +52,7 @@ for ext in tqdm(extlist):
     latest = latest_stored(ext_id)
     if is_404(latest):
         continue
-    # print('diff', latest['diff'].days, int(latest['diff'].seconds/3600))
-    if latest and latest['diff'].days < -2 and 'content' in latest:
+    if latest and latest['diff'].days > -2 and 'content' in latest:
         print('using latest stored')
         infos = latest['content']
     else:
