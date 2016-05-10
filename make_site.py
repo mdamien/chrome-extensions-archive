@@ -22,11 +22,11 @@ print('file stats loaded')
 
 for ext in exts:
     ext_id = ext['ext_id']
-    ext['files'] = crxs.get(ext_id,[])
+    ext['files'] = list(reversed(crxs.get(ext_id, [])))
     ext['download_link'] = DOWNLOAD_URL.format(ID=ext_id)
     ext['view_source'] = VIEW_SOURCE_URL+ext['download_link']
     for file in ext['files']:
-        file['storage_url'] = "https://storage.googleapis.com/chrmexts/crx/{ext_id}/{file}".format(
+        file['storage_url'] = "https://crx.dam.io/{ext_id}/{file}".format(
             ext_id=ext_id, file=file['name'])
     if not 'user_count' in ext:
         print(ext)
