@@ -55,4 +55,4 @@ for i, group in enumerate(exts_groups):
 	    files_count=files_count, VIEW_SOURCE_URL=VIEW_SOURCE_URL,
 	    now=datetime.datetime.now(), pages=len(exts_groups), page=page)
 	name = 'pages/' + str(page) if page > 1 else 'index'
-	open('../chrome-extensions-archive/{}.html'.format(name), 'w').write(result)
+	open('../site/chrome-extensions-archive/{}.html'.format(name), 'w').write(result)

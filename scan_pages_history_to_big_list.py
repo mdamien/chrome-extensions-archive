@@ -1,11 +1,11 @@
 import json, random, os
 from tqdm import tqdm
 
-from extstats.CONSTS import SITEMAP_FILE
+from extstats.CONSTS import SITEMAP_FILE, PAGES_DIRECTORY
 
 from extstats.store_infos_history import latest_good, TO_RM
 
-DIR = 'crawled/pages_infos_history/'
+DIR = PAGES_DIRECTORY
 ext_ids = os.listdir(DIR)
 random.shuffle(ext_ids)
 

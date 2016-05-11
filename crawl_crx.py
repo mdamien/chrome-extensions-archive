@@ -87,7 +87,13 @@ for ext in tqdm(extlist):
         except Exception as e:
             print(bad('fail to download crx:'), e)
             continue
-        manifest = extract_manifest_of_file(tmp_file)
+        
+        manifest = None
+        try:
+        	manifest = extract_manifest_of_file(tmp_file)
+        except Exception as e:
+            print(bad('bad download, parse of manifest failed'), e) 
+    
         if manifest and 'version' in manifest:
             version = manifest['version']
             print(good('manifest version:'), version)

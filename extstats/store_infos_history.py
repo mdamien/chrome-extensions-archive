@@ -1,6 +1,9 @@
 import os, json, datetime, arrow
 
-DIR = 'crawled/pages_infos_history/{id}/'
+from .CONSTS import PAGES_DIRECTORY
+
+
+DIR = PAGES_DIRECTORY + '{id}/'
 FILE = '{date}.json'
 
 TO_RM = []
