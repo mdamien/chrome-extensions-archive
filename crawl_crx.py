@@ -23,7 +23,7 @@ TMP_FILE = 'crawled/tmp/tmp_crx_{ext_id}.zip'
 DEST_DIR = CRX_DIRECTORY + '{ext_id}/'
 DEST_FILE = '{dir}/{version}.zip'
 
-extlist = json.load(open('data/PAGES.json'))
+extlist = json.load(open('data/sitemap.json'))
 
 """
 LIMIT = 20000 # DAT 20K LIMIT FOR NOW ?
@@ -32,43 +32,50 @@ if not SPECIFIC_EXT:
     extlist = extlist[:LIMIT]
 """
 
+shuffle(extlist)
+
+"""
 if not ORDER_BY_POP:
     shuffle(extlist)
+else:
+    extlist = list(reversed(extlist))
+"""
 
 def bad(x): colored(x, 'red')
 def good(x): colored(x, 'green')
 
 #print = lambda *x: ''
 
-for ext in tqdm(extlist):
-    ext_id = ext['ext_id']
+#@deco.concurrent
+def do(url):
+    ext_id = url.split('/')[-1]
     if SPECIFIC_EXT and ext_id != SPECIFIC_EXT:
-        continue
+        return
     print()
-    print(ext['name'])
     print(ext_id)
     tmp_file = TMP_FILE.format(ext_id=ext_id)
 
     latest = latest_stored(ext_id)
-    if is_404(latest):
-        continue
+    if latest and is_404(latest):
+        return
+    if latest:
+        print(latest.get('name'))
     if latest and latest['diff'].days > -2 and 'content' in latest:
         print('using latest stored')
         infos = latest['content']
     else:
         # get current version
-        url = ext['url']
         if url is None:
             url = "https://chrome.google.com/webstore/detail/_/"+ext_id
         try:
             req = requests.get(url)
             if req.status_code != 200:
                 print(bad('bad status code:'), req.status_code)
-                continue
+                return
             page_html = req.text
         except Exception as e:
             print(bad('fail to download page: '+url), e)
-            continue
+            return
         infos = parse_page(page_html)
         if not is_stored_recent(ext_id):
             store_infos_history(ext_id, infos)
@@ -86,11 +93,11 @@ for ext in tqdm(extlist):
             down(ext_id, tmp_file)
         except Exception as e:
             print(bad('fail to download crx:'), e)
-            continue
+            return
         
         manifest = None
         try:
-        	manifest = extract_manifest_of_file(tmp_file)
+            manifest = extract_manifest_of_file(tmp_file)
         except Exception as e:
             print(bad('bad download, parse of manifest failed'), e) 
     
@@ -104,7 +111,7 @@ for ext in tqdm(extlist):
                     manifest.get('version_name'),
                     'and .version=', manifest.get('version'))
                 os.remove(tmp_file)
-                continue
+                return
             print(good('version is added :D'))
             # assert current_version == version_name or version
             os.makedirs(target_dir_path, exist_ok=True)
@@ -114,5 +121,10 @@ for ext in tqdm(extlist):
                 os.remove(tmp_file)
             except OSError:
                 pass
+            except FileNotFoundError:
+                pass
     else:
         print('latest version already downloaded')
+
+for url in tqdm(extlist):
+    do(url)

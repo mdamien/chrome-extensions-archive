@@ -40,7 +40,6 @@ for ext in tqdm(os.listdir(DIR)):
 if len(TO_RM) > 0:
     for RM in TO_RM:
         print(RM)
-    YOU_HAVE_FILES_TO_DELETE
 
 exts.sort(key=lambda x: -len(x['files']))
 
