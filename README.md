@@ -15,11 +15,15 @@ Files are named as `.zip` but they are the exact same `.crx` stored on the store
 
 ## Running the scripts
 
+Crawling:
+
 - `crawl_sitemap.py`: gets you the list of all the extensions
-- `crawl_infos.py`: use the sitemap to crawl the pages and store their infos
+- `crawl_crx.py`: use `sitemap.json` to download the crx
+
+Site & stats:
+
 - `scan_pages_history_to_big_list.py`: make `PAGES.json` by scanning the pages
 you crawled
-- `crawl_crx.py`: use `PAGES.json` to download the crx
 - `crx_stats.py`: make `crx_stats.json` (what's currently stored)
 - `make_website.py`: use `crx_stats.json` + `PAGES.json` to generate the site
 
