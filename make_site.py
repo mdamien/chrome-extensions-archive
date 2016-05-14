@@ -12,7 +12,7 @@ env = Environment(loader=FileSystemLoader('extstats'))
 env.filters['add_commas'] = add_commas
 template = env.get_template('template.html')
 
-
+CRX2FF_URL = "https://crx2ff-yfrezangwq.now.sh"
 VIEW_SOURCE_URL = "https://robwu.nl/crxviewer/crxviewer.html?crx="
 
 exts = json.load(open('data/PAGES.json'))
@@ -52,7 +52,11 @@ exts_groups = list(split_list(exts, 5000))
 for i, group in enumerate(exts_groups):
 	page = i + 1
 	result = template.render(exts=group, exts_count=len(exts),
-	    files_count=files_count, VIEW_SOURCE_URL=VIEW_SOURCE_URL,
-	    now=datetime.datetime.now(), pages=len(exts_groups), page=page)
+	    files_count=files_count,
+        VIEW_SOURCE_URL=VIEW_SOURCE_URL,
+        CRX2FF_URL=CRX2FF_URL,
+	    now=datetime.datetime.now(),
+        pages=len(exts_groups),
+        page=page)
 	name = 'pages/' + str(page) if page > 1 else 'index'
 	open('../site/chrome-extensions-archive/{}.html'.format(name), 'w').write(result)

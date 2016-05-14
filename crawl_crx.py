@@ -41,10 +41,11 @@ else:
     extlist = list(reversed(extlist))
 """
 
-def bad(x): colored(x, 'red')
-def good(x): colored(x, 'green')
+def bad(x): return colored(x, 'red')
+def good(x): return colored(x, 'green')
 
-#print = lambda *x: ''
+ok = print
+print = lambda *x: ''
 
 #@deco.concurrent
 def do(url):
@@ -112,7 +113,7 @@ def do(url):
                     'and .version=', manifest.get('version'))
                 os.remove(tmp_file)
                 return
-            print(good('version is added :D'))
+            ok(good('version is added :D'), manifest['version'], url)
             # assert current_version == version_name or version
             os.makedirs(target_dir_path, exist_ok=True)
             shutil.move(tmp_file, target_file_path)

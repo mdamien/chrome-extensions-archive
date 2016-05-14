@@ -33,13 +33,19 @@
             <a href="{{ ext.url }}">{{ ext.name }}</a>
         </h2>
         <small>{{ ext.user_count | add_commas }} users</small>
+        <small class='crx2ff-links'>
+                    <a target="_blank" rel="noreferrer" href="{{ CRX2FF_URL }}?id={{ ext.ext_id }}">convert to firefox ext</a> /
+                    <a target="_blank" rel="noreferrer" href="{{ CRX2FF_URL }}?id={{ ext.ext_id }}&check">check firefox compat</a>
+        </small>
         <ul>
         {% for file in ext.files %}
             <li>
                 <a href="{{ file.storage_url }}">
                     {{ file.name.replace('.zip','') }} - <small>{{ file.size | filesizeformat }}</small>
                 </a>
-                <small><a target="_blank" rel="noreferrer" href="{{ VIEW_SOURCE_URL }}{{ file.storage_url }}">(view source)</a></small>
+                <small>
+                    <a target="_blank" rel="noreferrer" href="{{ VIEW_SOURCE_URL }}{{ file.storage_url }}">view source</a>
+                </small>
             </li>
         {% endfor %}
         </ul>

@@ -20,16 +20,20 @@ TO_RM = []
 for ext in tqdm(os.listdir(DIR)):
     files = os.listdir(DIR+ext)
     files_details = []
-    for file in sort_semverfiles(files):
-        fullpath = DIR+ext+'/'+file
-        size = os.path.getsize(fullpath)
-        if size < 10:
-            print(ext, file, 'IS 0000000', size)
-            TO_RM.append('rm '+fullpath)
-        files_details.append({
-            'name': file,
-            'size': size,
-        })
+    try:
+        for file in sort_semverfiles(files):
+            fullpath = DIR+ext+'/'+file
+            size = os.path.getsize(fullpath)
+            if size < 10:
+                print(ext, file, 'IS 0000000', size)
+                TO_RM.append('rm '+fullpath)
+            files_details.append({
+                'name': file,
+                'size': size,
+            })
+    except TypeError as e:
+        print('error with ', ext, files)
+        raise e
 
     exts.append({
         'ext': ext,

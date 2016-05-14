@@ -2,12 +2,11 @@
 
 	fix "not deleted but not in final list" problem
 	   => mark as deleted if not in sitemap anymore ?
-	sitemap should be reference for crawl_crx, making the process only
-	    [CRAWL_SITEMAP => CRAWL_CRX]
+	rename .zip to .crx
 	crx4chrome
 
 - site -
 
+	search + filtering for ext metadata + sourcecode
 	diff
 	make data available as json
-	crx2ff

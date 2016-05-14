@@ -83,7 +83,7 @@ def extract_manifest_of_file(crx_file):
     if os.path.isfile(crx_file):
         size = os.path.getsize(crx_file)
         if size == 0:
-            print('###################!!!! fucking empty downloads')
+            print('###################!!!! fucking empty downloads', crx_file)
             return
         try:
             with ZipFile(crx_file) as myzip:
