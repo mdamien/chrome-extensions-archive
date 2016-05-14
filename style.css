@@ -40,3 +40,10 @@ ul {
     opacity: 0.1;
 }
 div:hover > .extlink a { opacity: 1; }
+
+.crx2ff-links:before {content: '(';}
+.crx2ff-links:after{content: ')';}
+
+.crx2ff-links {
+    font-size: 60%;
+}
