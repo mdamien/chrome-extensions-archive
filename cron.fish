@@ -1,13 +1,19 @@
+function mesay
+      cowsay $argv | lolcat;
+      date | lolcat;
+end
+
+
 while true
-	cowsay crawl_sitemap | lolcat;
+	mesay crawl_sitemap;
 	p crawl_sitemap.py;
-	cowsay crawl_crx | lolcat;
+	nesay crawl_crx;
 	p crawl_crx.py;
-	cowsay scan_pages_history_to_big_list | lolcat;
+	mesay scan_pages_history_to_big_list;
 	p scan_pages_history_to_big_list.py;
-	cowsay crx_stats | lolcat;
+	mesay crx_stats;
 	p crx_stats.py;
-	cowsay make_site | lolcat;
+	mesay make_site;
 	p make_site.py
 end
 

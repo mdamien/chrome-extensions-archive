@@ -20,7 +20,7 @@
     </li>
 {% endfor %}
 </ul>
-<p class='description'>{{ext.full_description}}</p>
+<p class='description'>{{ext.full_description|nl2br}}</p>
 <hr/>
 <small class='crx2ff-links'>
 	<a target="_blank" rel="noreferrer" href="{{ CRX2FF_URL }}?id={{ ext.ext_id }}">convert to firefox ext</a> /

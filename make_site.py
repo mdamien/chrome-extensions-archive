@@ -5,14 +5,29 @@ from tqdm import tqdm
 from extstats.download_crx import DOWNLOAD_URL
 
 # jinja thing
-from jinja2 import evalcontextfilter, Environment, FileSystemLoader
+from jinja2 import evalcontextfilter, Environment, FileSystemLoader, Markup, escape
+import re
+
+_paragraph_re = re.compile(r'(?:\r\n|\r|\n){2,}')
+
 @evalcontextfilter
 def add_commas(eval_ctx, value):
     return "{:,}".format(int(value))
+
+@evalcontextfilter
+def nl2br(eval_ctx, value):
+    result = u'\n\n'.join(u'<p>%s</p>' % p.replace('\n', '<br>\n') \
+        for p in _paragraph_re.split(escape(value)))
+    if eval_ctx.autoescape:
+        result = Markup(result)
+    return result
 env = Environment(loader=FileSystemLoader('extstats'))
 env.filters['add_commas'] = add_commas
+env.filters['nl2br'] = nl2br
 template = env.get_template('template.html')
 template_ext = env.get_template('ext.html')
+
+
 
 CRX2FF_URL = "https://crx2ff-yfrezangwq.now.sh"
 VIEW_SOURCE_URL = "https://robwu.nl/crxviewer/crxviewer.html?crx="
