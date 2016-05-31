@@ -1,55 +1,39 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Chrome Extensions Archive</title>
-    <link href="/style.css" media="screen" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-    <h1>
-        Chrome Extensions Archive
-    </h1>
-    <div style='text-align: right'><a href="https://github.com/mdamien/chrome-extensions-archive">github.com/mdamien/chrome-extensions-archive</a></div>
-    <hr/>
-    <div style="text-align: center">
-        <strong>{{ exts_count | add_commas }}</strong> extensions, <strong>{{ files_count | add_commas }}</strong> versions, <strong>{{ total_size | filesizeformat }}</strong> stored<br/>
-        Last update: {{ now.strftime('%Y-%m-%d') }}
-    </div>
-    <div style="text-align: center">
-        Pages:
-        {% for p in range(1, pages) %}
-            {% if p == page %}<strong>{% endif %}
-            <a href="/{% if p > 1 %}pages/{{p}}{% else %}index{% endif %}.html">{{p}}</a>
-            {% if p == page %}</strong>{% endif %}
-        {% endfor %}
-        (ordered by # of users)
-    </div>
-    <hr/>
-    {% for ext in exts %}
-    <div{% if ext.deleted %} class="deleted"{% endif %}>
-        <small class="extlink"><a href="#{{ ext.ext_id }}">#{{ ext.ext_id }}</a></small>
-        <h2 id="{{ ext.ext_id }}">
-            <a href="{{ ext.url }}">{{ ext.name }}</a>
-        </h2>
-        <small>{{ ext.user_count | add_commas }} users</small>
-        <small class='crx2ff-links'>
-                    <a target="_blank" rel="noreferrer" href="{{ CRX2FF_URL }}?id={{ ext.ext_id }}">convert to firefox ext</a> /
-                    <a target="_blank" rel="noreferrer" href="{{ CRX2FF_URL }}?id={{ ext.ext_id }}&check">check firefox compat</a>
-        </small>
-        <ul>
-        {% for file in ext.files %}
-            <li>
-                <a href="{{ file.storage_url }}">
-                    {{ file.name.replace('.zip','') }} - <small>{{ file.size | filesizeformat }}</small>
-                </a>
-                <small>
-                    <a target="_blank" rel="noreferrer" href="{{ VIEW_SOURCE_URL }}{{ file.storage_url }}">view source</a>
-                </small>
-            </li>
-        {% endfor %}
-        </ul>
-    </div>
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center">
+    <strong>{{ exts_count | add_commas }}</strong> extensions, <strong>{{ files_count | add_commas }}</strong> versions, <strong>{{ total_size | filesizeformat }}</strong> stored<br/>
+    Last update: {{ now.strftime('%Y-%m-%d') }}
+</div>
+<div style="text-align: center">
+    Pages:
+    {% for p in range(1, pages) %}
+        {% if p == page %}<strong>{% endif %}
+        <a href="/{% if p > 1 %}pages/{{p}}{% else %}index{% endif %}.html">{{p}}</a>
+        {% if p == page %}</strong>{% endif %}
     {% endfor %}
-</body>
-</html>
+    (ordered by # of users)
+</div>
+<hr/>
+{% for ext in exts %}
+<div{% if ext.deleted %} class="deleted"{% endif %}>
+    <small class="extlink"><a href="/ext/{{ ext.ext_id }}.html">#{{ ext.ext_id }}</a></small>
+    <h2 id="{{ ext.ext_id }}">
+        <a href="{{ ext.url }}">{{ ext.name }}</a>
+    </h2>
+    <small>{{ ext.user_count | add_commas }} users</small>
+    <ul>
+    {% for file in ext.files %}
+        <li>
+            <a href="{{ file.storage_url }}">
+                {{ file.name.replace('.zip','') }} - <small>{{ file.size | filesizeformat }}</small>
+            </a>
+            <small>
+                <a target="_blank" rel="noreferrer" href="{{ VIEW_SOURCE_URL }}{{ file.storage_url }}">view source</a>
+            </small>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+{% endblock %}
