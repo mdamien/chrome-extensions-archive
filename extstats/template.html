@@ -13,7 +13,7 @@
     <div style='text-align: right'><a href="https://github.com/mdamien/chrome-extensions-archive">github.com/mdamien/chrome-extensions-archive</a></div>
     <hr/>
     <div style="text-align: center">
-        <strong>{{ exts_count | add_commas }}</strong> extensions, <strong>{{ files_count | add_commas }}</strong> versions<br/>
+        <strong>{{ exts_count | add_commas }}</strong> extensions, <strong>{{ files_count | add_commas }}</strong> versions, <strong>{{ total_size | filesizeformat }}</strong> stored<br/>
         Last update: {{ now.strftime('%Y-%m-%d') }}
     </div>
     <div style="text-align: center">

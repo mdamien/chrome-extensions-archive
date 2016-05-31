@@ -20,13 +20,16 @@ print('enriched loaded')
 crxs = json.load(open('data/crx_stats.json'))
 print('file stats loaded')
 
+total_size = 0
+
 for ext in exts:
     ext_id = ext['ext_id']
     ext['files'] = list(reversed(crxs.get(ext_id, [])))
+    total_size += sum([x['size'] for x in ext['files']])
     ext['download_link'] = DOWNLOAD_URL.format(ID=ext_id)
     ext['view_source'] = VIEW_SOURCE_URL+ext['download_link']
     for file in ext['files']:
-        file['storage_url'] = "https://crx.dam.io/{ext_id}/{file}".format(
+        file['storage_url'] = "https://crx.dam.io/files/{ext_id}/{file}".format(
             ext_id=ext_id, file=file['name'])
     if not 'user_count' in ext:
         print(ext)
@@ -57,6 +60,7 @@ for i, group in enumerate(exts_groups):
         CRX2FF_URL=CRX2FF_URL,
 	    now=datetime.datetime.now(),
         pages=len(exts_groups),
+        total_size=total_size,
         page=page)
 	name = 'pages/' + str(page) if page > 1 else 'index'
 	open('../site/chrome-extensions-archive/{}.html'.format(name), 'w').write(result)
