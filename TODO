@@ -2,6 +2,7 @@
 
 	fix "not deleted but not in final list" problem
 	   => mark as deleted if not in sitemap anymore ?
+	   => do an external (aggresive ?) crawl for not-in-sitemap extensions like bblakiipmnjckeglhphofgngofclajdk
 	rename .zip to .crx
 	crx4chrome
 
