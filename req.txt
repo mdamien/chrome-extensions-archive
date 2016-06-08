@@ -8,3 +8,4 @@ arrow
 beautifulsoup4
 elasticsearch_dsl
 flask
+sqlalchemy
