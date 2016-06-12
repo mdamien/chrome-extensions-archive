@@ -11,6 +11,8 @@ You can see the current status of what's archived and download the files here:
 
 To install an extension, go to `chrome://chrome/extensions/` and drop the file.
 
+To avoid the auto-update, [load it as an unpacked extension](http://stackoverflow.com/a/24577660/1075195)
+
 Files are named as `.zip` but they are the exact same `.crx` stored on the store.
 
 ## Running the scripts
