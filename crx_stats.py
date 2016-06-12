@@ -8,6 +8,8 @@ from extstats.CONSTS import CRX_DIRECTORY as DIR
 from distutils.version import LooseVersion
 
 
+#DIR = 'crawled/crx4chrome/'
+
 def sort_semverfiles(files):
     def keyfunc(filename):
         return LooseVersion(filename.replace('.zip', ''))

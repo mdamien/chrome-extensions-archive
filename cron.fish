@@ -7,7 +7,7 @@ end
 while true
 	mesay crawl_sitemap;
 	p crawl_sitemap.py;
-	nesay crawl_crx;
+	mesay crawl_crx;
 	p crawl_crx.py;
 	mesay scan_pages_history_to_big_list;
 	p scan_pages_history_to_big_list.py;

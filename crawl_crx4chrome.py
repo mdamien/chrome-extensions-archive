@@ -20,6 +20,10 @@ TMP_FILE = 'crawled/tmp/tmp_crx_{ext_id}.zip'
 def try_down_version(url):
     print(url)
     html = requests.get(url).text
+    result = re.findall(r"https://chrome.google.com/webstore/detail/(.*)\?utm", html)
+    if len(result) < 1:
+        print(bad('no extensions at this url'))
+        return
     ext_id = re.findall(r"https://chrome.google.com/webstore/detail/(.*)\?utm", html)[0]
     print('ext_id', ext_id)
 
@@ -105,6 +109,6 @@ for i in range(2800):
             crawl_version("http://www.crx4chrome.com"+link.attrs['href'])
 """
 
-for i in range(1, 2800):
+for i in range(6261, 40000):
     print('---', i, '---')
     try_down_version("http://www.crx4chrome.com/down/{i}/cdn/".format(i=i))

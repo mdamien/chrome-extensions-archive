@@ -47,6 +47,8 @@ def sitemap_urls_from_robots(robots_text):
             yield line.split(':', 1)[1].strip()
 
 results = set()
+results = set(json.load(open('data/not_in_sitemap.json')))
+print(results)
 
 session = requests.Session()
 retries = Retry(total=5,
