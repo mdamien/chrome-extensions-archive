@@ -30,7 +30,7 @@ template_ext = env.get_template('ext.html')
 
 
 CRX2FF_URL = "https://crx2ff-yfrezangwq.now.sh"
-VIEW_SOURCE_URL = "https://robwu.nl/crxviewer/crxviewer.html?crx="
+VIEW_SOURCE_URL = "/source/crxviewer.html?crx="
 
 exts = json.load(open('data/PAGES.json'))
 print('enriched loaded')
