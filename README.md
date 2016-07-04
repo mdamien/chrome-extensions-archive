@@ -1,6 +1,8 @@
 
 # Chrome Extensions Archive
 
+[![Join the chat at https://gitter.im/mdamien/chrome-extensions-archive](https://badges.gitter.im/mdamien/chrome-extensions-archive.svg)](https://gitter.im/mdamien/chrome-extensions-archive?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 The goal is to provide a complete archive of the chrome web store with version
 history.
 
