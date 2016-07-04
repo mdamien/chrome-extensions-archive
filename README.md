@@ -17,19 +17,23 @@ Files are named as `.zip` but they are the exact same `.crx` stored on the store
 
 ## Running the scripts
 
+Install dependencies: `pip3 install -r req.txt` 
+
 Crawling:
 
-- `crawl_sitemap.py`: gets you the list of all the extensions
+- `crawl_sitemap.py`: gets you the list of all the extensions in `sitemap.json`
 - `crawl_crx.py`: use `sitemap.json` to download the crx
 
 Site & stats:
 
-- `scan_pages_history_to_big_list.py`: make `PAGES.json` by scanning the pages
+- `scan_pages_history_to_big_list.py`: makes `PAGES.json` by scanning the pages
 you crawled
-- `crx_stats.py`: make `crx_stats.json` (what's currently stored)
+- `crx_stats.py`: makes `crx_stats.json` (what's currently stored)
 - `make_website.py`: use `crx_stats.json` + `PAGES.json` to generate the site
 
-For now I rsync the crx directory on Google Cloud Storage directly.
+Then I serve the files direcly with nginx.
+
+PS: scripts are python3 only
 
 ## Helping out
 
@@ -40,3 +44,6 @@ I have a few things in mind for the future:
 - running an alternative web store (better search, firefox support,...)
 
 Don't hesitate to reach out (here on issues, damien@dam.io or @dam_io on twitter)
+
+To propose changes, just do a PR. You can also discuss about things on [gitter](https://gitter.im/mdamien/chrome-extensions-archive).
+
