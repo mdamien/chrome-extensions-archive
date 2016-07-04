@@ -21,9 +21,15 @@ def nl2br(eval_ctx, value):
     if eval_ctx.autoescape:
         result = Markup(result)
     return result
+
+@evalcontextfilter
+def to_json(eval_ctx, value):
+    return Markup(json.dumps(value, indent=2))
+
 env = Environment(loader=FileSystemLoader('extstats'))
 env.filters['add_commas'] = add_commas
 env.filters['nl2br'] = nl2br
+env.filters['tojson'] = to_json
 template = env.get_template('template.html')
 template_ext = env.get_template('ext.html')
 
@@ -71,7 +77,7 @@ exts_groups = list(split_list(exts, 5000))
 
 DEST = '../site/chrome-extensions-archive/'
 
-TEST_ONE = False
+TEST_ONE = True
 #exts = exts[:10]
 
 if not TEST_ONE:
