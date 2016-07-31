@@ -9,6 +9,9 @@ import json
 
 import shutil
 
+import signal
+import sys
+
 from tqdm import tqdm
 
 class Sitemap(object):
@@ -56,8 +59,14 @@ retries = Retry(total=5,
                 status_forcelist=[503])
 session.mount("https://chrome.google.com/", HTTPAdapter(max_retries=retries))
 
+def signal_handler(signal, frame):
+    print('Ctrl-C pressed; saving what we have so far')
+    save()
+    shutil.copy('crawled/sitemap/result.json','data/sitemap.json')
+    sys.exit(0)
+
 def save():
-    json.dump(sorted(list(results)), 
+    json.dump(sorted(list(results)),
         open('crawled/sitemap/result.json'.format(len(results)),'w'), indent=2)
 
 def parse_sitemap(url, depth=0):
@@ -79,5 +88,7 @@ def parse_sitemap(url, depth=0):
     save()
 
 if __name__ == '__main__':
+    signal.signal(signal.SIGINT, signal_handler)
     parse_sitemap("https://chrome.google.com/webstore/sitemap")
+    signal.pause()
     shutil.copy('crawled/sitemap/result.json','data/sitemap.json')
