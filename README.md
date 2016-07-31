@@ -1,8 +1,6 @@
 
 # Chrome Extensions Archive
 
-[![Join the chat at https://gitter.im/mdamien/chrome-extensions-archive](https://badges.gitter.im/mdamien/chrome-extensions-archive.svg)](https://gitter.im/mdamien/chrome-extensions-archive?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 The goal is to provide a complete archive of the chrome web store with version
 history.
 
@@ -48,4 +46,3 @@ I have a few things in mind for the future:
 Don't hesitate to reach out (here on issues, damien@dam.io or @dam_io on twitter)
 
 To propose changes, just do a PR. You can also discuss about things on [gitter](https://gitter.im/mdamien/chrome-extensions-archive).
-
