@@ -47,7 +47,7 @@ you crawled
 - `make_site.py`: use `data/crx_stats.json` + `data/PAGES.json` to generate the site
 - `make_json_site.py`: `data/crx_stats.json` + `data/PAGES.json` to generate JSON
 
-Then I serve the files directly with nginx.
+Then I serve the files directly with nginx (see nginx.conf file for example)
 
 PS: scripts are python3 only
 
