@@ -1,3 +1,5 @@
+# some simple service to execute a regex search on the extension sources
+
 import flask
 from flask import request
 import subprocess

@@ -1,3 +1,5 @@
+# extract extensions one by one to look for patterns
+
 import os
 import json
 import shlex

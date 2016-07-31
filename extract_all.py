@@ -1,3 +1,5 @@
+# extract all sources in one big directory to make it easy to grep through all the sources
+
 import os
 import shlex
 from tqdm import tqdm

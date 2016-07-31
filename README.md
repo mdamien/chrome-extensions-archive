@@ -31,7 +31,6 @@ mkdir crawled/tmp
 mkdir ../site
 mkdir ../site/chrome-extensions-archive
 mkdir ../site/chrome-extensions-archive/ext
-mkdir ../exts-site
 echo "{}" > data/not_in_sitemap.json
 ```
 
