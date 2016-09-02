@@ -88,7 +88,7 @@ def _nl2br(text):
     return ((t, H.br()) for t in text.split('\n') if t)
 
 def _ext(ext):
-    return (
+    return H.div() / (
         H.small(class_='extlink') / (
             H.a(href='/ext/%s.html' % ext['ext_id']) / ('#' + ext['ext_id'])),
         H.h2(id=ext['ext_id']) / (H.a(href=ext['url']) / ext['name']),
@@ -114,26 +114,6 @@ def list(exts, page, pages, name, exts_count, files_count, total_size):
             return H.strong() / link
         return link
 
-    def _ext(ext):
-        return (
-            H.small(class_='extlink') / (
-                H.a(href='/ext/%s.html' % ext['ext_id']) / ('#' + ext['ext_id'])),
-            H.h2(id=ext['ext_id']) / (H.a(href=ext['url']) / ext['name']),
-            H.small() / _add_commas(ext['user_count']),
-            H.ul() / ((
-                H.li() / (
-                    H.a(href=file['storage_url']) / (
-                        file['name'].replace('.zip', ''),
-                        ' - ',
-                        H.small() / (' ', _sizeof_fmt(file['size'])),
-                    ),
-                    H.small() /
-                        H.a(target='_blank', rel='noreferrer',
-                                href=VIEW_SOURCE_URL + file['storage_url']),
-                )
-            ) for file in ext['files'])
-        )
-
     return _base((
         H.div(style="text-align: center") / (
             H.strong() / _add_commas(exts_count),
@@ -156,7 +136,7 @@ def list(exts, page, pages, name, exts_count, files_count, total_size):
 
 def ext(ext):
     return _base((
-        *_ext(ext),
+        _ext(ext),
         H.p(class_='description') / _nl2br(ext['full_description']),
         H.hr(),
         H.pre(class_='pprint') / json.dumps(ext, indent=2, sort_keys=True)
