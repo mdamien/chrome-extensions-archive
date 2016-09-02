@@ -48,7 +48,12 @@ class Node:
 
 class _H:
     def __getattr__(self, tag):
-        return lambda **attrs: Node(tag, attrs)
+        def new(__content__=None, **attrs):
+            node = Node(tag, attrs)
+            if __content__:
+                return node / __content__
+            return node
+        return new
 H = _H()
 
 ### templates
@@ -56,26 +61,10 @@ import datetime, json
 
 VIEW_SOURCE_URL = "/source/crxviewer.html?crx="
 
-def _base(content='', title_prefix=''):
-    return render(H.html() / (
-      H.head() / (
-        H.meta(charset="utf-8"),
-        H.meta(content="width=device-width, initial-scale=1", name="viewport"),
-        H.title() / (title_prefix + "Chrome Extensions Archive"),
-        H.link(href="/style.css", media="screen", rel="stylesheet", type="text/css"),
-      ),
-      H.body() / (
-        H.a(href='/') / (H.h1() / "Chrome Extensions Archive"),
-        H.div(style='text-align: right') /
-          H.a(href="https://github.com/mdamien/chrome-extensions-archive") /
-            "github.com/mdamien/chrome-extensions-archive",
-        H.hr(),
-        content,
-      ),
-    ))
 
 def _add_commas(n):
     return "{:,}".format(int(n))
+
 
 def _sizeof_fmt(num):
     for unit in ['', 'Ko', 'Mo', 'Go', 'To']:
@@ -84,32 +73,56 @@ def _sizeof_fmt(num):
         num /= 1024.0
     return "%.1f%s" % (num, 'Yi')
 
+
 def _nl2br(text):
     return ((t, H.br()) for t in text.split('\n') if t)
 
+
+def _base(content='', title_prefix=''):
+    return render(H.html() / (
+      H.head() / (
+        H.meta(charset="utf-8"),
+        H.meta(content="width=device-width, initial-scale=1", name="viewport"),
+        H.title(title_prefix + "Chrome Extensions Archive"),
+        H.link(href="/style.css", media="screen", rel="stylesheet", type="text/css"),
+      ),
+      H.body() / (
+        H.a(href='/') / H.h1("Chrome Extensions Archive"),
+        H.div(style='text-align: right') /
+          H.a(href="https://github.com/mdamien/chrome-extensions-archive") /
+            "github.com/mdamien/chrome-extensions-archive",
+        H.hr(),
+        content,
+      ),
+    ))
+
+
 def _ext(ext):
     return H.div() / (
-        H.small(class_='extlink') / (
-            H.a(href='/ext/%s.html' % ext['ext_id']) / ('#' + ext['ext_id'])),
-        H.h2(id=ext['ext_id']) / (H.a(href=ext['url']) / ext['name']),
+        H.small(class_='extlink') /
+            H.a('#' + ext['ext_id'], href='/ext/%s.html' % ext['ext_id']),
+        H.h2(id=ext['ext_id']) / H.a(ext['name'], href=ext['url']),
         H.small() / _add_commas(ext['user_count']),
-        H.ul() / ((
+        H.ul((
             H.li() / (
                 H.a(href=file['storage_url']) / (
                     file['name'].replace('.zip', ''),
                     ' - ',
-                    H.small() / (' ', _sizeof_fmt(file['size'])),
+                    H.small(' ' + _sizeof_fmt(file['size'])),
                 ),
                 H.small() /
                     H.a(target='_blank', rel='noreferrer',
-                            href=VIEW_SOURCE_URL + file['storage_url']),
+                            href=VIEW_SOURCE_URL + file['storage_url']) /
+                        'view source',
             )
         ) for file in ext['files'])
     )
 
+
 def list(exts, page, pages, name, exts_count, files_count, total_size):
+
     def _page(p):
-        link = H.a(href='/' + name) / (' %d ' % p)
+        link = H.a(' %d ' % p, href='/' + name)
         if p == page:
             return H.strong() / link
         return link

@@ -1,4 +1,5 @@
 data/
 notes/
 crawled/
+codesearch/
 *.pyc
