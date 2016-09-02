@@ -17,6 +17,8 @@ Files are named as `.zip` but they are the exact same `.crx` stored on the store
 
 ## Running the scripts
 
+**scripts are python 3.5+ only**
+
 Install dependencies: `pip3 install -r req.txt`
 
 Create some folders and initialize some files:
@@ -48,8 +50,6 @@ you crawled
 - `make_json_site.py`: `data/crx_stats.json` + `data/PAGES.json` to generate JSON
 
 Then I serve the files directly with nginx (see nginx.conf file for example)
-
-PS: scripts are python3 only
 
 ## Helping out
 
