@@ -1,8 +1,12 @@
 ### template engine
-import html, types
+import html, types, keyword
+
+VOID_TAGS = 'area', 'base', 'br', 'col', 'embed', 'hr', \
+    'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'
 
 def render(node):
-    assert node is not None  # TODO: None => '' ?
+    if node is None:
+        return ''
 
     if type(node) in (tuple, list, types.GeneratorType):
         return ''.join(render(child) for child in node)
@@ -16,14 +20,15 @@ def render(node):
 
     attrs_rendered = ''
     if node.attrs:
-        # TODO: really, should I ignore the None values ?
-        # TODO: class_, is_, ...
-        attrs_rendered = ' ' + ' '.join(
-            html.escape(key.replace('class_', 'class')) + '="' + html.escape(value) + '"'
-            for key, value in node.attrs.items()
-            if value is not None)
+        def render_attr(key, value):
+            assert key
+            key = key.replace('class_', 'class')
+            if value:
+                return key + '="' + html.escape(value) + '"'
+            return key
+        attrs_rendered = ' ' + ' '.join(render_attr(k, v) for k, v in node.attrs.items())
 
-    if node.tag in ('br', 'img', 'hr'):
+    if node.tag in VOID_TAGS:
         assert not node.children
         return '<{tag}{attrs} />'.format(tag=node.tag, attrs=attrs_rendered)
 
@@ -49,6 +54,12 @@ class Node:
 class _H:
     def __getattr__(self, tag):
         def new(__content__=None, **attrs):
+            def clean(k):
+                # allow to use reserved keywords as: class_, for_,..
+                if k[-1] == '_' and k[:-1] in keyword.kwlist:
+                    k = k[-1]
+                return k
+            attrs = {clean(k): v for k, v in attrs.items()}
             node = Node(tag, attrs)
             if __content__:
                 return node / __content__
