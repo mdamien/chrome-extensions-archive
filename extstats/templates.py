@@ -46,7 +46,7 @@ def _ext(ext):
                 ('#' + ext['ext_id'])
         ),
         L.h2(id=ext['ext_id']) /
-            L.a(href=ext['url']) / ext['name'],
+            (L.a(href=ext['url']) / ext['name']),
         L.small / _add_commas(ext['user_count']),
         L.ul / ((
             L.li / (
