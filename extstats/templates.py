@@ -30,9 +30,10 @@ def _base(content='', title_prefix=''):
       ),
       L.body() / (
         L.a(href='/') / L.h1("Chrome Extensions Archive"),
-        L.div(style='text-align: right') /
-          L.a(href="https://github.com/mdamien/chrome-extensions-archive") /
-            "github.com/mdamien/chrome-extensions-archive",
+        L.div(style='text-align: right') / (
+            L.a(href="https://github.com/mdamien/chrome-extensions-archive") /
+                "github.com/mdamien/chrome-extensions-archive"
+        ),
         L.hr,
         content,
       ),
