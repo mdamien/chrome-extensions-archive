@@ -29,7 +29,7 @@ def _base(content='', title_prefix=''):
         L.link(href="/style.css", media="screen", rel="stylesheet", type="text/css"),
       ),
       L.body() / (
-        L.a(href='/') / L.h1 / "Chrome Extensions Archive",
+        L.a(href='/') / (L.h1 / "Chrome Extensions Archive"),
         L.div(style='text-align: right') / (
             L.a(href="https://github.com/mdamien/chrome-extensions-archive") /
                 "github.com/mdamien/chrome-extensions-archive"
