@@ -11,9 +11,9 @@ def _add_commas(n):
 def _sizeof_fmt(num):
     for unit in ['', 'Ko', 'Mo', 'Go', 'To']:
         if abs(num) < 1024.0:
-            return "%3.1f%s" % (num, unit)
+            return "%3.1f %s" % (num, unit)
         num /= 1024.0
-    return "%.1f%s" % (num, 'Yi')
+    return "%.1f %s" % (num, 'Yi')
 
 
 def _nl2br(text):
@@ -56,6 +56,7 @@ def _ext(ext):
                     ' - ',
                     L.small / (' ' + _sizeof_fmt(file['size'])),
                 ),
+                ' ',
                 L.small / (
                     L.a(target='_blank', rel='noreferrer',
                             href=VIEW_SOURCE_URL + file['storage_url']) /
