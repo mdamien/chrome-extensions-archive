@@ -67,7 +67,7 @@ def signal_handler(signal, frame):
 
 def save():
     json.dump(sorted(list(results)),
-        open('crawled/sitemap/result.json'.format(len(results)),'w'), indent=2)
+        open('crawled/sitemap/result.json','w'), indent=2, sort_keys=True)
 
 def parse_sitemap(url, depth=0):
     resp = session.get(url)
@@ -90,5 +90,4 @@ def parse_sitemap(url, depth=0):
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, signal_handler)
     parse_sitemap("https://chrome.google.com/webstore/sitemap")
-    signal.pause()
     shutil.copy('crawled/sitemap/result.json','data/sitemap.json')
