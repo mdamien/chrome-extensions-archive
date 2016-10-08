@@ -7,6 +7,7 @@ history.
 You can see the current status of what's archived and download the files here:
 [dam.io/chrome-extensions-archive/](http://dam.io/chrome-extensions-archive/)
 
+
 ## Installing the extensions
 
 To install an extension, go to `chrome://chrome/extensions/` and drop the file.
@@ -62,3 +63,4 @@ I have a few things in mind for the future:
 Don't hesitate to reach out (here on issues, damien@dam.io or @dam_io on twitter)
 
 To propose changes, just do a PR. You can also discuss about things on [gitter](https://gitter.im/mdamien/chrome-extensions-archive).
+

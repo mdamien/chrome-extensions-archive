@@ -99,6 +99,9 @@ def ext(ext):
     return _base((
         _ext(ext),
         L.p('.description') / _nl2br(ext['full_description']),
+        L.small / (
+            L.a('.removal-request', href='mailto:crx-removal@dam.io') / 'request removal from the archive',
+        ),
         L.hr,
         L.pre('.pprint') / json.dumps(ext, indent=2, sort_keys=True)
     ), title_prefix=ext['name'])
