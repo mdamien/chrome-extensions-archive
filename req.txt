@@ -9,4 +9,5 @@ beautifulsoup4
 elasticsearch_dsl
 flask
 sqlalchemy
-lys
+-e git://github.com/mdamien/lys.git#egg=lys
+
