@@ -70,6 +70,7 @@ def _ext(ext):
 def list(exts, page, pages, name, exts_count, files_count, total_size):
 
     def _page(p):
+        name = ('pages/' + str(p) if p > 1 else 'index') + '.html'
         link = L.a(href='/' + name) / (' %d ' % p)
         if p == page:
             return L.strong / link
@@ -100,7 +101,7 @@ def ext(ext):
         _ext(ext),
         L.p('.description') / _nl2br(ext['full_description']),
         L.small / (
-            L.a('.removal-request', href='mailto:crx-removal@dam.io') / 'request removal from the archive',
+            L.a('.removal-request', href='mailto:crx-removal@dam.io?subject=Extension removal request&body=' + str(ext.get('ext_id'))) / 'request removal from the archive',
         ),
         L.hr,
         L.pre('.pprint') / json.dumps(ext, indent=2, sort_keys=True)
