@@ -105,4 +105,5 @@ def ext(ext):
         ),
         L.hr,
         L.pre('.pprint') / json.dumps(ext, indent=2, sort_keys=True)
-    ), title_prefix=ext['name'])
+    ), title_prefix=ext['name']+ ' - ')
+
