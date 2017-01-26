@@ -48,3 +48,28 @@ projectworldimpact.com
 marketing.projectworldimpact.com
 """
 EXT_IDS.append('gmognmifopeaejigoboedonbjndflkmj') # Project World Impact - Oct 5, 2016: copyright issue
+
+
+"""
+Hello,
+
+I am the developer of this extension. https://chrome.google.com/webstore/detail/data-scraper/nndknepjnldbdbepjfgmncbggmopgden?hl=en-US
+
+You are not authorized to distribute my extension binaries or text or images. Please remove them immediately. 
+
+Thank You
+
+David Dehgan
+"""
+EXT_IDS.append('nndknepjnldbdbepjfgmncbggmopgden') # Data Miner - Jan 13, 2017
+
+"""
+ipbdhiphdegjdgbdmellogakoppmgppi
+
+proof you are the owner of this extension:
+
+    You can check developer mail in my developer's dashboard image attached and also on webstore : https://chrome.google.com/webstore/detail/auto-click-go-next-media/ipbdhiphdegjdgbdmellogakoppmgppi
+    i am owner of this extension
+    please remove this from your site 
+"""
+EXT_IDS.append('ipbdhiphdegjdgbdmellogakoppmgppi') # Jan 26, 2017

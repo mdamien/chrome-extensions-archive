@@ -101,7 +101,8 @@ def ext(ext):
         _ext(ext),
         L.p('.description') / _nl2br(ext['full_description']),
         L.small / (
-            L.a('.removal-request', href='mailto:crx-removal@dam.io?subject=Extension removal request&body=' + str(ext.get('ext_id'))) / 'request removal from the archive',
+            'Are you the owner of the extension ?',
+            L.a('.removal-request', href='mailto:crx-removal@dam.io?subject=Extension removal request&body=' + str(ext.get('ext_id')) + '%0A%0A%0Aproof you are the owner of this extension:') / 'request removal from crx.dam.io',
         ),
         L.hr,
         L.pre('.pprint') / json.dumps(ext, indent=2, sort_keys=True)

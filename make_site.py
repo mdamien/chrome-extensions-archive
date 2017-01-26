@@ -1,4 +1,4 @@
-import json, datetime
+import json, datetime, os, glob
 from jinja2 import Template
 from tqdm import tqdm
 
@@ -61,6 +61,9 @@ if not TEST_ONE:
             page=page)
         open(DEST + name, 'w').write(result)
 
+files = glob.glob(DEST + 'ext/*')
+for f in files:
+    os.remove(f)
 
 for ext in tqdm(exts):
     result = templates.ext(ext=ext)
