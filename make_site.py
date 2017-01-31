@@ -4,8 +4,9 @@ from tqdm import tqdm
 
 from extstats.download_crx import DOWNLOAD_URL
 
-from extstats import templates
+from removal_requests import EXT_IDS as IDS_TO_AVOID_CRAWLING
 
+from extstats import templates
 
 exts = json.load(open('data/PAGES.json'))
 print('enriched loaded')
@@ -25,6 +26,7 @@ for ext in exts:
     if not 'user_count' in ext:
         print(ext)
 
+
 def safeint(n):
     try:
         return int(n)
@@ -36,7 +38,7 @@ def split_list(L, n):
     for i in range(0, len(L), n):
         yield L[i:i+n]
 
-exts = sorted((ext for ext in exts if len(ext['files']) > 0),
+exts = sorted((ext for ext in exts if len(ext['files']) > 0 and ext['ext_id'] not in IDS_TO_AVOID_CRAWLING),
     key=lambda x: (-safeint(x.get('user_count')), x.get('name')))
 # exts = exts[:10]
 

@@ -15,8 +15,6 @@ import shutil
 import requests
 from extstats.store_infos_history import is_stored_recent, store_infos_history, latest_stored, is_404
 
-from removal_requests import EXT_IDS as IDS_TO_AVOID_CRAWLING
-
 ORDER_BY_POP = len(sys.argv) > 1 and sys.argv[1] == 'by_pop'
 SPECIFIC_EXT = sys.argv[1] if not ORDER_BY_POP and len(sys.argv) > 1 else None
 print('ORDER_BY_POP ?', ORDER_BY_POP)
@@ -38,8 +36,6 @@ print = lambda *x: ''
 #@deco.concurrent
 def do(url):
     ext_id = url.split('/')[-1]
-    if ext_id in IDS_TO_AVOID_CRAWLING:
-        return
     if SPECIFIC_EXT and ext_id != SPECIFIC_EXT:
         return
     print()

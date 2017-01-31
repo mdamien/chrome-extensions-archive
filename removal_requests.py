@@ -73,3 +73,34 @@ proof you are the owner of this extension:
     please remove this from your site 
 """
 EXT_IDS.append('ipbdhiphdegjdgbdmellogakoppmgppi') # Jan 26, 2017
+
+EXT_IDS.append('eeglijgppkhkdkmgddifdkmjhgpgjpkj') # Salescurve.cc - Feb 30, 2017
+
+"""
+Hi,
+
+please remove our extensions from your site:
+
+    - https://crx.dam.io/ext/igfgjflebpgfkppkhedknieacpfnjegn.html
+    - https://crx.dam.io/ext/mmkkkheeebjepledkgaahfckcjbljocm.html
+    - https://crx.dam.io/ext/miocmoeigkdomhljmcmcmkapekjopcla.html
+    - https://crx.dam.io/ext/oijabeghgljkgkapjcdaihbniphbniip.html
+
+    Regards,
+    xora.be Team
+"""
+# xora.be - Jan 30, 2017
+EXT_IDS.append('igfgjflebpgfkppkhedknieacpfnjegn')
+EXT_IDS.append('mmkkkheeebjepledkgaahfckcjbljocm')
+EXT_IDS.append('miocmoeigkdomhljmcmcmkapekjopcla')
+EXT_IDS.append('oijabeghgljkgkapjcdaihbniphbniip')
+
+"""
+ipbdhiphdegjdgbdmellogakoppmgppi
+
+proof you are the owner of this extension:
+    Please remove this app from your site i am the developer of this app you can  check mail of mine and developer mail on webstore please do not add any extension in future update also please
+"""
+EXT_IDS.append('ipbdhiphdegjdgbdmellogakoppmgppi') # Auto Click Go Next Media Links - Jan 29, 2017
+
+EXT_IDS.append('hiichlphechohklpeojeocjpdibafooj') # EZ Mailboxes Investigation (Free Version) - Google Apps Marketplace - Jan 28, 2017
