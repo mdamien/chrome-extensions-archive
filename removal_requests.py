@@ -104,3 +104,9 @@ proof you are the owner of this extension:
 EXT_IDS.append('ipbdhiphdegjdgbdmellogakoppmgppi') # Auto Click Go Next Media Links - Jan 29, 2017
 
 EXT_IDS.append('hiichlphechohklpeojeocjpdibafooj') # EZ Mailboxes Investigation (Free Version) - Google Apps Marketplace - Jan 28, 2017
+
+EXT_IDS.append('mglkckkjehdbppkmfplhejdinpodbhom') # OffTheShelf - Feb 5, 2017
+
+EXT_IDS.append('pgeolalilifpodheeocdmbhehgnkkbak') # SpeakIt - Feb 7, 2017
+
+
