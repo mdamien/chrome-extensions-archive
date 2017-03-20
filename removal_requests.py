@@ -109,4 +109,11 @@ EXT_IDS.append('mglkckkjehdbppkmfplhejdinpodbhom') # OffTheShelf - Feb 5, 2017
 
 EXT_IDS.append('pgeolalilifpodheeocdmbhehgnkkbak') # SpeakIt - Feb 7, 2017
 
+EXT_IDS.append('hjgbehhikdpmpglfjiknhjffnlfnphbo') # Texmage - Mar 7, 2017
+
+EXT_IDS.append('ofnmflhedfocnfnoafgcojkllnmdipoj') # WordReference Extension - Mar 7, 2017
+
+EXT_IDS.append('kmffehbidlalibfeklaefnckpidbodff') # ibossConnect for Chromebook - Mar 10, 2017
+
+
 
