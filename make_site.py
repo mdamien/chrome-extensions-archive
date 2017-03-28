@@ -44,7 +44,7 @@ exts = sorted((ext for ext in exts if len(ext['files']) > 0 and ext['ext_id'] no
 
 files_count = sum(len(ext['files']) for ext in exts)
 
-exts_groups = list(split_list(exts, 5000))
+exts_groups = list(split_list(exts, 1000))
 
 DEST = '../site/chrome-extensions-archive/'
 
