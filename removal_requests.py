@@ -115,5 +115,7 @@ EXT_IDS.append('ofnmflhedfocnfnoafgcojkllnmdipoj') # WordReference Extension - M
 
 EXT_IDS.append('kmffehbidlalibfeklaefnckpidbodff') # ibossConnect for Chromebook - Mar 10, 2017
 
+EXT_IDS.append('hpbnfmibfmiemkapenmifggfoieioigb') # StaySavr Plus - Mar 23, 2017
+
 
 
