@@ -117,5 +117,26 @@ EXT_IDS.append('kmffehbidlalibfeklaefnckpidbodff') # ibossConnect for Chromebook
 
 EXT_IDS.append('hpbnfmibfmiemkapenmifggfoieioigb') # StaySavr Plus - Mar 23, 2017
 
+EXIT_IDS.append('igjieejfholmbicjibnloenhcbmifbak') # SpeakToDo - 13 April, 2017
+
+EXIT_IDS.append('igjieejfholmbicjibnloenhcbmifbak') # SpeakToDo - 13 April, 2017
+
+
+"""
+Hi,
+
+I am the developer of this extension https://chrome.google.com/webstore/detail/facbook-message-cleaner/dcanahkfmlgbgmnjlcmpmjcmbldniele
+
+You are not authorized to distribute my extension binaries or text or images. Please remove them 
+immediately. 
+
+proof you are the owner of this extension: Please check developer Email Address and this mail address
+"""
+EXIT_IDS.append('dcanahkfmlgbgmnjlcmpmjcmbldniele') # Facbook Message Cleaner - 13 April, 2017
+
+
+EXIT_IDS.append('bgjpfhpjcgdppjbgnpnjllokbmcdllig') # Seznam Lištička - Email - 21 March, 2017
+EXIT_IDS.append('blmojkbhnkkphngknkmgccmlenfaelkd') # Seznam Lištička - Slovník - 21 March, 2017
+EXIT_IDS.append('olfeabkoenfaoljndfecamgilllcpiak') # Seznam Lištička - Rychlá volba - 21 March, 2017
 
 
