@@ -1,5 +1,5 @@
 # TRANSPARENCY LOG OF REMOVAL REQUESTS
-# copyright claims are accompagned with full email
+# copyright claims are accompanied with full email
 
 EXT_IDS = []
 
