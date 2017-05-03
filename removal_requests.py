@@ -150,3 +150,8 @@ proof you are the owner of this extension:
 Sent from Mail for Windows 10
 """
 EXT_IDS.append('mabckbaobddmnafhfkaciemiimfmifhh')  # WorkFlowy Plus - Apr 4, 2017
+
+EXT_IDS.append('fbpfibfmcimnclopkpcleadeipgkenic')  # Kahoot Bot - Apr 29, 2017
+
+EXT_IDS.append('pfoaikaihbhndjmmaclikcmbfchpchca')  # Sticker Market - Apr 20, 2017
+
