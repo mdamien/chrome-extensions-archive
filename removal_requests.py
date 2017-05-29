@@ -155,3 +155,4 @@ EXT_IDS.append('fbpfibfmcimnclopkpcleadeipgkenic')  # Kahoot Bot - Apr 29, 2017
 
 EXT_IDS.append('pfoaikaihbhndjmmaclikcmbfchpchca')  # Sticker Market - Apr 20, 2017
 
+EXT_IDS.append('glbmcmmkngpkbeepefcjheikbcgkkpja')  # SmartSOCIAL CORE - May 28, 2017
