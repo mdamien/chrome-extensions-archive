@@ -31,7 +31,7 @@ def bad(x): return colored(x, 'red')
 def good(x): return colored(x, 'green')
 
 ok = print
-# print = lambda *x: ''
+print = lambda *x: ''
 
 #@deco.concurrent
 def do(url):
@@ -57,18 +57,18 @@ def do(url):
         try:
             req = requests.get(url)
             if req.status_code != 200:
-                print(bad('bad status code:'), req.status_code)
+                ok(bad('bad status code:'), req.status_code)
                 return
             page_html = req.text
         except Exception as e:
-            print(bad('fail to download page: '+url), e)
+            ok(bad('fail to download page: '+url), e)
             return
         infos = parse_page(page_html)
         if not is_stored_recent(ext_id) and 'version' in infos:
             store_infos_history(ext_id, infos)
             print('saved it :D')
     if 'version' not in infos:
-        print(bad('ERROR: no infos for ' + url))
+        ok(bad('ERROR: no infos for ' + url))
         return
     current_version = infos['version']
     print('current_version:', current_version)
@@ -82,14 +82,14 @@ def do(url):
         try:
             down(ext_id, tmp_file)
         except Exception as e:
-            print(bad('fail to download crx:'), e)
+            ok(bad('fail to download crx:'), e)
             return
         
         manifest = None
         try:
             manifest = extract_manifest_of_file(tmp_file)
         except Exception as e:
-            print(bad('bad download, parse of manifest failed'), e) 
+            ok(bad('bad download, parse of manifest failed'), e) 
     
         if manifest and 'version' in manifest:
             version = manifest['version']

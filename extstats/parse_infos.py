@@ -20,9 +20,10 @@ mde = MicrodataExtractor()
 
 def microdata(html):
     microdata = mde.extract(html)
-    if 'items' in microdata and len(microdata) > 0 and 'properties' in microdata['items']:
+    #print(microdata)
+    if 'items' in microdata and len(microdata['items']) > 0 and 'properties' in microdata['items'][0]:
         microdata = microdata['items'][0]['properties']
-    if len(microdata) == 1:
+    elif len(microdata) == 1 and type(microdata) is list:
         microdata = microdata[0]['properties']
     if 'version' in microdata:
         def attrget(item, key):
