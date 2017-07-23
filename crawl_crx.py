@@ -67,6 +67,7 @@ def do(url):
             infos = parse_page(page_html)
         except Exception as e:
             ok(bad('ERROR: bad parsing for ' + url), e)
+            infos = {}
         if not is_stored_recent(ext_id) and 'version' in infos:
             store_infos_history(ext_id, infos)
             print('saved it :D')
