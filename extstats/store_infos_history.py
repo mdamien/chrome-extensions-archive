@@ -30,14 +30,14 @@ def is_404(latest):
         latest['content'] = content
         if 'status' not in content and 'name' not in content:
             print('problem with', latest, ': no infos')
-            STOPME
+            return False
     except Exception as e:
         if len(open(latest['fullpath']).read().strip()) == 0:
             TO_RM.append('rm '+latest['fullpath'])
             # print(TO_RM); exiiit
-            return False
         else:
-            raise e
+            print('ERROR WITH:', latest)
+            return False
     return content.get('status', 200) == 404
 
 

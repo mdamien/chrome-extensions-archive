@@ -20,23 +20,26 @@ mde = MicrodataExtractor()
 
 def microdata(html):
     microdata = mde.extract(html)
-    microdata = microdata['items'][0]['properties']
-    def attrget(item, key):
-        keys = key.split('.')
-        for key in keys:
-            item = item.get(key, {})
-        if item == {}: return None
-        return item
-    keys = (
-        'url',
-        'name',
-        'version',
-        'aggregateRating.properties.ratingCount',
-        'aggregateRating.properties.ratingValue',
-        'image',
-        'offers.properties.price'
-    )
-    return {key:attrget(microdata, key) for key in keys}
+    if 'items' in microdata and len(microdata) > 0 and 'properties' in microdata['items']:
+        microdata = microdata['items'][0]['properties']
+        def attrget(item, key):
+            keys = key.split('.')
+            for key in keys:
+                item = item.get(key, {})
+            if item == {}: return None
+            return item
+        keys = (
+            'url',
+            'name',
+            'version',
+            'aggregateRating.properties.ratingCount',
+            'aggregateRating.properties.ratingValue',
+            'image',
+            'offers.properties.price'
+        )
+        return {key:attrget(microdata, key) for key in keys}
+    # TODO: sentry exception
+    return {}
 
 def pagemap_extract(html, data):
     pagemap = re.findall(r"(<PageMap>.*</PageMap>)", html, re.MULTILINE)[0]

@@ -67,6 +67,9 @@ def do(url):
         if not is_stored_recent(ext_id):
             store_infos_history(ext_id, infos)
             print('saved it :D')
+    if 'version' not in infos:
+        print('ERROR: no infos for ', url)
+        return
     current_version = infos['version']
     print('current_version:', current_version)
 

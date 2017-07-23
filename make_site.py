@@ -38,7 +38,7 @@ def split_list(L, n):
     for i in range(0, len(L), n):
         yield L[i:i+n]
 
-exts = sorted((ext for ext in exts if len(ext['files']) > 0 and ext['ext_id'] not in IDS_TO_AVOID_CRAWLING),
+exts = sorted((ext for ext in exts if len(ext['files']) > 0 and ext['ext_id'] not in IDS_TO_AVOID_CRAWLING and ext.get('name')),
     key=lambda x: (-safeint(x.get('user_count')), x.get('name')))
 # exts = exts[:10]
 
