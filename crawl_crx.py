@@ -31,7 +31,7 @@ def bad(x): return colored(x, 'red')
 def good(x): return colored(x, 'green')
 
 ok = print
-print = lambda *x: ''
+# print = lambda *x: ''
 
 #@deco.concurrent
 def do(url):
@@ -64,11 +64,11 @@ def do(url):
             print(bad('fail to download page: '+url), e)
             return
         infos = parse_page(page_html)
-        if not is_stored_recent(ext_id):
+        if not is_stored_recent(ext_id) and 'version' in infos:
             store_infos_history(ext_id, infos)
             print('saved it :D')
     if 'version' not in infos:
-        print('ERROR: no infos for ', url)
+        print(bad('ERROR: no infos for ' + url))
         return
     current_version = infos['version']
     print('current_version:', current_version)

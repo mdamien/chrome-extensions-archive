@@ -20,8 +20,8 @@ mde = MicrodataExtractor()
 
 def microdata(html):
     microdata = mde.extract(html)
-    if 'items' in microdata and len(microdata) > 0 and 'properties' in microdata['items']:
-        microdata = microdata['items'][0]['properties']
+    if len(microdata) == 1 and 'properties' in microdata[0]:
+        microdata = microdata[0]['properties']
         def attrget(item, key):
             keys = key.split('.')
             for key in keys:
