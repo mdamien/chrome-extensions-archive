@@ -1,6 +1,6 @@
 # some stats about collected crxs
 
-import os
+import os, time
 from tqdm import tqdm
 
 from extstats.CONSTS import CRX_DIRECTORY as DIR
@@ -32,7 +32,7 @@ for ext in tqdm(os.listdir(DIR)):
             files_details.append({
                 'name': file,
                 'size': size,
-                'created': time.ctime(os.path.getctime(file)),
+                'created': time.ctime(os.path.getctime(fullpath))
             })
     except TypeError as e:
         print('error with ', ext, files)
