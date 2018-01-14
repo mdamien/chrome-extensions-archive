@@ -41,6 +41,10 @@ def split_list(L, n):
 exts = sorted((ext for ext in exts if len(ext['files']) > 0 and ext['ext_id'] not in IDS_TO_AVOID_CRAWLING and ext.get('name')),
     key=lambda x: (-safeint(x.get('user_count')), x.get('name')))
 # exts = exts[:10]
+all_exts_names = [{
+    'value': exts.get('name'),
+    'id': exts.get('id'),
+} for ext in exts]
 
 files_count = sum(len(ext['files']) for ext in exts)
 

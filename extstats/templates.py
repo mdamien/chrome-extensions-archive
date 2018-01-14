@@ -1,5 +1,7 @@
 import datetime, json
+
 from lys import L
+from escapejson import escapejson
 
 VIEW_SOURCE_URL = "/source/crxviewer.html?crx="
 
@@ -20,7 +22,7 @@ def _nl2br(text):
     return ((t, L.br()) for t in text.split('\n') if t)
 
 
-def _base(content='', title_prefix=''):
+def _base(content, all_exts_names, title_prefix=''):
     return str(L.html / (
       L.head / (
         L.meta(charset="utf-8"),
@@ -34,6 +36,35 @@ def _base(content='', title_prefix=''):
             L.a(href="https://github.com/mdamien/chrome-extensions-archive") /
                 "github.com/mdamien/chrome-extensions-archive"
         ),
+        L.hr,
+        L.script(src='typeahead.js'),
+        L.script / raw("""var EXTS = {};""".format(escapejson(json.dumps(all_exts_names)))),
+        L.center / (
+            L.input('#search', type="text", placeholder="Search an extension by name or ID")
+        ),
+        L.script / raw("""
+        var index = new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.whitespace,
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          local: EXTS
+        });
+
+        function escapeHTML(html) {
+            escape.textContent = html;
+            return escape.innerHTML;
+        }
+
+        $('#search').typeahead(null, {
+            displayKey: 'value',
+            source: index,
+            templates: {
+                suggestion: function(item) {
+                    return "<p style='padding:6px'><b>" + escapeHTML(item.value)
+                        + "</b> - <smal>" + item.id + "</small></p>";
+                },
+            }
+        });
+        """),
         L.hr,
         content,
       ),
@@ -67,7 +98,7 @@ def _ext(ext):
     )
 
 
-def list(exts, page, pages, name, exts_count, files_count, total_size):
+def list(exts, page, pages, name, exts_count, files_count, total_size, all_exts_names):
 
     def _page(p):
         name = ('pages/' + str(p) if p > 1 else 'index') + '.html'
@@ -94,9 +125,9 @@ def list(exts, page, pages, name, exts_count, files_count, total_size):
         ),
         L.hr,
         *(_ext(ext) for ext in exts),
-    ))
+    ), all_exts_names=all_exts_names)
 
-def ext(ext):
+def ext(ext, exts_names):
     return _base((
         _ext(ext),
         L.p('.description') / _nl2br(ext['full_description']),
@@ -106,5 +137,5 @@ def ext(ext):
         ),
         L.hr,
         L.pre('.pprint') / json.dumps(ext, indent=2, sort_keys=True)
-    ), title_prefix=ext['name']+ ' - ')
+    ), all_exts_names=all_exts_names, title_prefix=ext['name']+ ' - ')
 
