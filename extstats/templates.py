@@ -1,7 +1,6 @@
 import datetime, json
 
 from lys import L
-from escapejson import escapejson
 
 VIEW_SOURCE_URL = "/source/crxviewer.html?crx="
 
@@ -22,7 +21,7 @@ def _nl2br(text):
     return ((t, L.br()) for t in text.split('\n') if t)
 
 
-def _base(content, all_exts_names, title_prefix=''):
+def _base(content, title_prefix=''):
     return str(L.html / (
       L.head / (
         L.meta(charset="utf-8"),
@@ -36,35 +35,6 @@ def _base(content, all_exts_names, title_prefix=''):
             L.a(href="https://github.com/mdamien/chrome-extensions-archive") /
                 "github.com/mdamien/chrome-extensions-archive"
         ),
-        L.hr,
-        L.script(src='typeahead.js'),
-        L.script / raw("""var EXTS = {};""".format(escapejson(json.dumps(all_exts_names)))),
-        L.center / (
-            L.input('#search', type="text", placeholder="Search an extension by name or ID")
-        ),
-        L.script / raw("""
-        var index = new Bloodhound({
-          datumTokenizer: Bloodhound.tokenizers.whitespace,
-          queryTokenizer: Bloodhound.tokenizers.whitespace,
-          local: EXTS
-        });
-
-        function escapeHTML(html) {
-            escape.textContent = html;
-            return escape.innerHTML;
-        }
-
-        $('#search').typeahead(null, {
-            displayKey: 'value',
-            source: index,
-            templates: {
-                suggestion: function(item) {
-                    return "<p style='padding:6px'><b>" + escapeHTML(item.value)
-                        + "</b> - <smal>" + item.id + "</small></p>";
-                },
-            }
-        });
-        """),
         L.hr,
         content,
       ),
@@ -97,9 +67,19 @@ def _ext(ext):
         ) for file in ext['files'])
     )
 
+def _simple_ext(ext):
+    return L.div / (
+        L.small('.extlink') / (
+            L.a(href='/ext/%s.html' % ext['ext_id']) /
+                ('#' + ext['ext_id'])
+        ),
+        L.h2(id=ext['ext_id']) /
+            (L.a(href=ext['url'] if ext['url'] else '') / ext['name']),
+        L.small / _add_commas(ext['user_count']),
+    )
 
-def list(exts, page, pages, name, exts_count, files_count, total_size, all_exts_names):
 
+def list(exts, page, pages, name, exts_count, files_count, total_size):
     def _page(p):
         name = ('pages/' + str(p) if p > 1 else 'index') + '.html'
         link = L.a(href='/' + name) / (' %d ' % p)
@@ -124,10 +104,10 @@ def list(exts, page, pages, name, exts_count, files_count, total_size, all_exts_
             '(ordered by # of users)'
         ),
         L.hr,
-        *(_ext(ext) for ext in exts),
-    ), all_exts_names=all_exts_names)
+        *(_simple_ext(ext) for ext in exts),
+    ))
 
-def ext(ext, exts_names):
+def ext(ext):
     return _base((
         _ext(ext),
         L.p('.description') / _nl2br(ext['full_description']),
@@ -137,5 +117,5 @@ def ext(ext, exts_names):
         ),
         L.hr,
         L.pre('.pprint') / json.dumps(ext, indent=2, sort_keys=True)
-    ), all_exts_names=all_exts_names, title_prefix=ext['name']+ ' - ')
+    ), title_prefix=ext['name']+ ' - ')
 

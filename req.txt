@@ -10,4 +10,3 @@ elasticsearch_dsl
 flask
 sqlalchemy
 -e git://github.com/mdamien/lys.git#egg=lys
-escapejson
