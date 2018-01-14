@@ -56,6 +56,8 @@ def _ext(ext):
                     file['name'].replace('.zip', ''),
                     ' - ',
                     L.small / (' ' + _sizeof_fmt(file['size'])),
+                    ' - ',
+                    L.small / (file['created']),
                 ),
                 ' ',
                 L.small / (

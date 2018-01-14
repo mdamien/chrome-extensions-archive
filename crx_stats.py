@@ -32,6 +32,7 @@ for ext in tqdm(os.listdir(DIR)):
             files_details.append({
                 'name': file,
                 'size': size,
+                'created': time.ctime(os.path.getctime(file)),
             })
     except TypeError as e:
         print('error with ', ext, files)
