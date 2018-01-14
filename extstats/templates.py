@@ -68,15 +68,7 @@ def _ext(ext):
     )
 
 def _simple_ext(ext):
-    return L.div / (
-        L.small('.extlink') / (
-            L.a(href='/ext/%s.html' % ext['ext_id']) /
-                ('#' + ext['ext_id'])
-        ),
-        L.h2(id=ext['ext_id']) /
-            (L.a(href=ext['url'] if ext['url'] else '') / ext['name']),
-        L.small / _add_commas(ext['user_count']),
-    )
+    return L.div / (L.a(href='/ext/%s.html' % ext['ext_id']) / ext.get('name'))
 
 
 def list(exts, page, pages, name, exts_count, files_count, total_size):
