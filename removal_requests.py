@@ -162,4 +162,8 @@ EXT_IDS += [
     'djacfmljogikgonehbbnjhbanjfacpon', # El Trece HD
     "edacconmaakjimmfgnblocblbcdcpbko", # Session Buddy
     "adpjkecnjfmgneijfljandenedleocdo", # ixigo inspire
+    'gijloegddjacahpkmofechkbpefckhio',
+    'ogaebbbemcaabllpilemkikhikffdkgc',
+    'nenlahapcbofgnanklpelkaejcehkggg',
+    'fommidcneendjonelhhhkmoekeicedej',
 ]
