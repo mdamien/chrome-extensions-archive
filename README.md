@@ -62,5 +62,5 @@ I have a few things in mind for the future:
 
 Don't hesitate to reach out (here on issues, damien@dam.io or @dam_io on twitter)
 
-To propose changes, just do a PR. You can also discuss about things on [gitter](https://gitter.im/mdamien/chrome-extensions-archive).
+To propose changes, just do a PR.
 
