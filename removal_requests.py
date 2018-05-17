@@ -28,17 +28,17 @@ EXT_IDS.append('glceimcheibihakjnohijonmhjihfkck') # proctorio - Sep 29, 2016: s
 
 """
 Hello,
- 
+
 We notice you have published the source to one of our Chrome extensions (PWI Fund) at the following URL:
- 
+
 https://crx.dam.io/ext/gmognmifopeaejigoboedonbjndflkmj.html
- 
+
 You are in breach of our copyright and intellectual property terms, and we kindly ask that you remove this page from your site within the next 24 hours, else we’ll be left with no option but to pursue legal action against you.
- 
+
 If you have any questions in this matter, please respond within the next 12 hours.
 
 Regards,
- 
+
 Ben
 Ben Clarke
 CHIEF TECHNOLOGY OFFICER
@@ -55,7 +55,7 @@ Hello,
 
 I am the developer of this extension. https://chrome.google.com/webstore/detail/data-scraper/nndknepjnldbdbepjfgmncbggmopgden?hl=en-US
 
-You are not authorized to distribute my extension binaries or text or images. Please remove them immediately. 
+You are not authorized to distribute my extension binaries or text or images. Please remove them immediately.
 
 Thank You
 
@@ -70,7 +70,7 @@ proof you are the owner of this extension:
 
     You can check developer mail in my developer's dashboard image attached and also on webstore : https://chrome.google.com/webstore/detail/auto-click-go-next-media/ipbdhiphdegjdgbdmellogakoppmgppi
     i am owner of this extension
-    please remove this from your site 
+    please remove this from your site
 """
 EXT_IDS.append('ipbdhiphdegjdgbdmellogakoppmgppi') # Jan 26, 2017
 
@@ -127,8 +127,8 @@ Hi,
 
 I am the developer of this extension https://chrome.google.com/webstore/detail/facbook-message-cleaner/dcanahkfmlgbgmnjlcmpmjcmbldniele
 
-You are not authorized to distribute my extension binaries or text or images. Please remove them 
-immediately. 
+You are not authorized to distribute my extension binaries or text or images. Please remove them
+immediately.
 
 proof you are the owner of this extension: Please check developer Email Address and this mail address
 """
@@ -142,10 +142,10 @@ EXT_IDS.append('olfeabkoenfaoljndfecamgilllcpiak') # Seznam Lištička - Rychlá
 """
 FROM: wasimmalik88@gmail.com
 mabckbaobddmnafhfkaciemiimfmifhh
- 
+
 Hi This is my extension why it code is available in public please get it down otherwise. I will go legal against you.
- 
- 
+
+
 proof you are the owner of this extension:
 Sent from Mail for Windows 10
 """
@@ -158,6 +158,8 @@ EXT_IDS.append('pfoaikaihbhndjmmaclikcmbfchpchca')  # Sticker Market - Apr 20, 2
 EXT_IDS.append('glbmcmmkngpkbeepefcjheikbcgkkpja')  # SmartSOCIAL CORE - May 28, 2017
 
 EXT_IDS += [
-    'fnldlnogdgpgnepocacgmeilijjfnjmn',
-    'djacfmljogikgonehbbnjhbanjfacpon',
+    'fnldlnogdgpgnepocacgmeilijjfnjmn', # NavegaTV
+    'djacfmljogikgonehbbnjhbanjfacpon', # El Trece HD
+    "edacconmaakjimmfgnblocblbcdcpbko", # Session Buddy
+    "adpjkecnjfmgneijfljandenedleocdo", # ixigo inspire
 ]
