@@ -166,4 +166,37 @@ EXT_IDS += [
     'ogaebbbemcaabllpilemkikhikffdkgc',
     'nenlahapcbofgnanklpelkaejcehkggg',
     'fommidcneendjonelhhhkmoekeicedej',
+    'oaimmbbnnhmibhbocchkfcakiankbnlk',
+    'mefgmmbdailogpfhfblcnnjfmnpnmdfa', # Feedbro
+    'lpmockibcakojclnfmhchibmdpmollgn', # Cookiebro
 ]
+
+
+"""
+Nodetics Solutions <nodetics@gmail.com>
+Jul 12 (5 days ago)
+to damien 
+Hello,
+
+You are illegally hosting our fully copyrighted software.
+
+Feedbro:
+    https://chrome.google.com/webstore/detail/feedbro/mefgmmbdailogpfhfblcnnjfmnpnmdfa?hl=en
+
+    Kanbanly:
+    https://chrome.google.com/webstore/detail/kanbanly/oinopeelpidbddmdhhllmpifaohjdkom?hl=en
+
+    Although we didn't find Cookiebro with a quick look, you must ensure that it is not hosted by your site either:
+
+    Cookiebro:
+    https://chrome.google.com/webstore/detail/cookiebro/lpmockibcakojclnfmhchibmdpmollgn?hl=en
+
+
+    You are instructed to remove ALL our material immediately from github, crx.dam.io and any other site you manage that is hosting our material. You must ensure that material is not accessible via your github repository revision history or any other history on the web that has been caused by your actions.
+
+    Further, we explicitly forbid you to publish any of our other future products although this should be self-evident for fully copyrighted software.
+
+    You have until 2018-07-19 00:00:00 UTC to comply. Failure to comply will be considered as an agreement that you will pay us for hosting our copyrighted materials 20 000 USD per day and will be subject to legal action for copyright infringement to the maximum limit of the law.
+
+    Github will be also notified of your unlawful activities unless you take immediate action on this matter. 
+"""
