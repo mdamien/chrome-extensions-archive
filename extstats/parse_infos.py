@@ -55,6 +55,7 @@ def pagemap_extract(html, data):
 def scrap(html, data):
     soup = BeautifulSoup(html, "lxml")
     data['full_description'] = soup.find('pre').text.strip()
+    data['html'] = html
 
 
 def parse_page(html):
@@ -126,6 +127,14 @@ def extract_manifest(ext_id):
     return extract_manifest_of_file(crx_file)
 
 if __name__ == '__main__':
+    if 'parse' in sys.argv:
+        import requests
+        url = sys.argv[2]
+        print('parsing', url)
+        html = requests.get(url).text
+        print(json.dumps(parse_page(html), indent=2, ensure_ascii=False))
+        sys.exit()
+
     assert uncomment("{/*lol*/}").strip() == """{}"""
 
     #test edge case
