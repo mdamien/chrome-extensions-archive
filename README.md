@@ -1,5 +1,6 @@
 
-# Chrome Extensions Archive
+# Chrome Extensions Archive: No updates since Feb 4. 2019
+**In maintenance: disk is full ! (2 To)**
 
 The goal is to provide a complete archive of the chrome web store with version
 history.
